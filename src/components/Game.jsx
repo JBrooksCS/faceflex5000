@@ -21,18 +21,22 @@ class Game extends Component {
     await this.loadModels();
     const input = this.refs.webcam.video
     const canvas = this.refs.canvas
+    const displaySize = { width: 350, height: 350 };
+    faceapi.matchDimensions(canvas, displaySize)
+
     console.log(input)
     //Start of async?
     console.log(canvas)
+    setInterval(async() => {
     const detections = await faceapi
       .detectAllFaces(input, new faceapi.TinyFaceDetectorOptions())
       .withFaceLandmarks()
       .withFaceExpressions();
-      const displaySize = { width: 350, height: 350 };
-      //faceapi.matchDimensions(canvas, displaySize)
-
+      
       const resizedDetections = faceapi.resizeResults(detections, displaySize)
+      canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
       faceapi.draw.drawFaceLandmarks(canvas, resizedDetections);
+    },100); //100);
   }
 
   async loadModels() {
@@ -61,8 +65,8 @@ class Game extends Component {
     return (
       // <script defer src="face-api.min.js" />
       <>
-        <h1>HELLO FROM GAME!</h1>
-        <div className="container">
+
+        <div className="container"style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', marginTop: 100 }}>
           <Webcam
             id="video"
             audio={false}
@@ -72,7 +76,6 @@ class Game extends Component {
             width={350}
             videoConstraints={videoConstraints}
           />
-          {/* <video id="video" ref= "webcam"></video> */}
           <canvas id="canvas" ref="canvas" width={296} height={296} style={{position: 'absolute'}} />
         </div>
       </>

@@ -18,7 +18,7 @@ class App extends Component {
   render() {
     return (
       <>
-        <h1>HELLO FROM APP</h1>
+
         <Game />
       </>
     );
