@@ -10,7 +10,7 @@ class App extends Component {
 
   componentDidMount = () => {
     this.setState({
-      user: 1
+      
     })
   }
 
