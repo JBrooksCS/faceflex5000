@@ -3,22 +3,33 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import * as faceapi from "face-api.js";
 import Webcam from "react-webcam";
+import TopBar from "./topBar/TopBar";
 
 const videoConstraints = {
-  width: 350,
-  height: 350,
+  width: 200,
+  height: 200,
   facingMode: "user"
 };
 
-const MODEL_URL = "/models";
+// const MODEL_URL = "/models";
 //console.log(faceapi.nets)
 
 class Game extends Component {
   state = {
-    bg_color: "blue"
+    expression: "neutral",
+    color: "black"
   };
+  //Color variables - setting state to one of these depending on expression detected
+  happyColor = "pink"
+  disgustColor = "green"
+  sadColor = "blue"
+  shockedColor = "yellow"
+  angryColor = "red"
+  scaredColor = "purple"
+  neutralColor = "black"
 
   async componentDidMount() {
+    document.body.style.backgroundColor = "black";
     console.log("component did mount");
     await this.loadModels();
     const input = this.refs.webcam.video;
@@ -28,8 +39,6 @@ class Game extends Component {
     let isCleared = true;
     let degrees = 90;
     let frame = 0;
-    let angrySound = document.querySelector("#angry")
-    let shockedSound = document.querySelector("#shocked")
     faceapi.matchDimensions(canvas, displaySize);
 
     //console.log(input)
@@ -41,92 +50,82 @@ class Game extends Component {
       const detections = await faceapi
         .detectAllFaces(
           input,
-          new faceapi.TinyFaceDetectorOptions({ inputSize: 128})
+          new faceapi.TinyFaceDetectorOptions({ inputSize: 128 })
         )
         .withFaceLandmarks()
         .withFaceExpressions();
-
       //frame++;
       const resizedDetections = faceapi.resizeResults(detections, displaySize);
       let ctx = canvas.getContext("2d");
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
-      faceapi.draw.drawFaceLandmarks(canvas, resizedDetections)
+      faceapi.draw.drawFaceLandmarks(canvas, resizedDetections);
 
       //rotate hue
       // if (frame % 5 === 0) {
       //   degrees = (degrees + 15) % 360;
-      //   ctx.filter = `hue-rotate(${degrees}deg)`;
-      // }
-
+      //   ctx.filter = `hue-rotate(${degrees}deg)`;}
       // if (frame % 30 === 0){
-      //   ctx.clearRect(0, 0, canvas.width, canvas.height);
-      // }
+      //   ctx.clearRect(0, 0, canvas.width, canvas.height);}
 
       var dominant_expression = "";
       var expression_confidence = -1;
-      // console.log(detections)
-      // let obj = resizedDetections[0].expressions
-      // if (detections[0].expressions) {
+
+      //This checks to make sure we've loaded a detection
       if (detections[0]) {
         let obj = detections[0].expressions;
+        //Sorts through the detections obj, assigns most likely exp to dominant_expression and expression_confidence
         Object.keys(obj).forEach(function(key, index) {
-          // key: the name of the object key
-          // index: the ordinal position of the key within the object
+          // key: the name of the object key, index: the ordinal position of the key within the object
           if (obj[key] > expression_confidence) {
             //Then this exp is the new king
             dominant_expression = key;
             expression_confidence = obj[key];
           }
-          //console.log(dominant_expression, expression_confidence)
-          switch (dominant_expression) {
-            case "angry":
-              document.body.style.backgroundColor = "darkred";
-              container_div.style.backgroundColor = "red";
-              angrySound.play()
-              break;
-            case "disgusted":
-              document.body.style.backgroundColor = "green";
-              container_div.style.backgroundColor = "lightgreen";
-
-              break;
-            case "fearful":
-              document.body.style.backgroundColor = "purple";
-              break;
-            case "happy":
-              document.body.style.backgroundColor = "lightblue";
-              container_div.style.backgroundColor = "steelblue";
-              break;
-            case "neutral":
-              document.body.style.backgroundColor = "black";
-              container_div.style.backgroundColor = "black";
-              if (angrySound.played){
-                angrySound.pause()
-              }
-              if (shockedSound.played){
-                shockedSound.pause()
-              }
-              break;
-            case "sad":
-              document.body.style.backgroundColor = "blue";
-              container_div.style.backgroundColor = "darkblue";
-
-              break;
-            case "surprised":
-              document.body.style.backgroundColor = "yellow";
-              container_div.style.backgroundColor = "darkorange";
-              shockedSound.play()
-              break;
-
-            default:
-          }
         });
+        if (dominant_expression !== this.state.expression) {
+          this.changeWithExpression(dominant_expression);
+        }
       }
     }, 100); //100);
-
-    //this.refs.container.style.backgroundColor = this.state.bg_color;
   }
-  changeWithExpression = () => {};
+
+  //this.refs.container.style.backgroundColor = this.state.bg_color;
+  changeWithExpression = dom_exp => {
+    console.log("FROM ", this.state.expression, "TO", dom_exp);
+
+
+    switch (dom_exp) {
+      case "angry":
+        this.setState({ expression: "angry", color: this.angryColor  });
+        break;
+
+      case "disgusted":
+        this.setState({ expression: "disgusted", color: this.disgustedColor });
+        break;
+
+      case "fearful":
+        this.setState({ expression: "fearful", color: this.fearfulColor });
+        break;
+
+      case "happy":
+        this.setState({ expression: "happy", color: this.happyColor });
+        break;
+
+      case "neutral":
+        this.setState({ expression: "neutral", color: this.neutralColor });
+        break;
+
+      case "sad":
+        this.setState({ expression: "sad", color: this.sadColor });
+        break;
+
+      case "surprised":
+        this.setState({ expression: "shocked", color: this.shockedColor });
+        break;
+
+      default:
+    }
+  };
 
   async loadModels() {
     //await faceapi.loadModels(MODEL_URL)
@@ -148,10 +147,11 @@ class Game extends Component {
   // }
 
   render() {
-    console.log("rendering");
+    //console.log("rendering");
     return (
       // <script defer src="face-api.min.js" />
       <>
+        <TopBar expression={this.state.expression}/>
         <div
           ref="container"
           className="container"
@@ -159,8 +159,10 @@ class Game extends Component {
             display: "flex",
             flexDirection: "row",
             justifyContent: "center",
-            marginTop: 100,
-            padding: "5px"
+            margin: 0,
+            padding: "0px",
+            height: "400",
+            backgroundColor: this.state.color
           }}
         >
           <Webcam
@@ -176,10 +178,7 @@ class Game extends Component {
           {/* <canvas id="canvas" ref="canvas" style={{ position: "absolute" }} /> */}
 
           <canvas id="canvas2" ref="canvas" style={{ position: "relative" }} />
-
         </div>
-        <audio id="angry" src="./sounds/angry.mp3"></audio>
-        <audio id="shocked" src="./sounds/shocked.mp3"></audio>
       </>
     );
   }
