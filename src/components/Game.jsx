@@ -24,10 +24,12 @@ class Game extends Component {
     const input = this.refs.webcam.video;
     const canvas = this.refs.canvas;
     const container_div = this.refs.container;
-    const displaySize = { width: 500, height: 500 };
+    const displaySize = { width: 400, height: 400 };
     let isCleared = true;
     let degrees = 90;
     let frame = 0;
+    let angrySound = document.querySelector("#angry")
+    let shockedSound = document.querySelector("#shocked")
     faceapi.matchDimensions(canvas, displaySize);
 
     //console.log(input)
@@ -39,17 +41,18 @@ class Game extends Component {
       const detections = await faceapi
         .detectAllFaces(
           input,
-          new faceapi.TinyFaceDetectorOptions({ inputSize: 128 })
+          new faceapi.TinyFaceDetectorOptions({ inputSize: 128})
         )
         .withFaceLandmarks()
         .withFaceExpressions();
 
-      frame++;
+      //frame++;
       const resizedDetections = faceapi.resizeResults(detections, displaySize);
       let ctx = canvas.getContext("2d");
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      faceapi.draw.drawFaceLandmarks(canvas, resizedDetections);
-      isCleared = false;
+      
+      faceapi.draw.drawFaceLandmarks(canvas, resizedDetections)
+
       //rotate hue
       // if (frame % 5 === 0) {
       //   degrees = (degrees + 15) % 360;
@@ -80,6 +83,7 @@ class Game extends Component {
             case "angry":
               document.body.style.backgroundColor = "darkred";
               container_div.style.backgroundColor = "red";
+              angrySound.play()
               break;
             case "disgusted":
               document.body.style.backgroundColor = "green";
@@ -96,6 +100,12 @@ class Game extends Component {
             case "neutral":
               document.body.style.backgroundColor = "black";
               container_div.style.backgroundColor = "black";
+              if (angrySound.played){
+                angrySound.pause()
+              }
+              if (shockedSound.played){
+                shockedSound.pause()
+              }
               break;
             case "sad":
               document.body.style.backgroundColor = "blue";
@@ -105,6 +115,7 @@ class Game extends Component {
             case "surprised":
               document.body.style.backgroundColor = "yellow";
               container_div.style.backgroundColor = "darkorange";
+              shockedSound.play()
               break;
 
             default:
@@ -163,8 +174,12 @@ class Game extends Component {
             style={{ display: "none" }}
           />
           {/* <canvas id="canvas" ref="canvas" style={{ position: "absolute" }} /> */}
+
           <canvas id="canvas2" ref="canvas" style={{ position: "relative" }} />
+
         </div>
+        <audio id="angry" src="./sounds/angry.mp3"></audio>
+        <audio id="shocked" src="./sounds/shocked.mp3"></audio>
       </>
     );
   }

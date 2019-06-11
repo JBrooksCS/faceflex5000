@@ -9,17 +9,20 @@ class App extends Component {
   }
 
   componentDidMount = () => {
-    this.setState({
-      
-    })
+    // this.setState({
+    // })
   }
 
 
   render() {
     return (
       <>
+        <div>
 
         <Game />
+
+
+        </div>
       </>
     );
   }
