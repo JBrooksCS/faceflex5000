@@ -9,17 +9,20 @@ class App extends Component {
   }
 
   componentDidMount = () => {
-    this.setState({
-      
-    })
+    // this.setState({
+    // })
   }
 
 
   render() {
     return (
       <>
-        <h1>HELLO FROM APP</h1>
+        <div>
+
         <Game />
+
+
+        </div>
       </>
     );
   }
