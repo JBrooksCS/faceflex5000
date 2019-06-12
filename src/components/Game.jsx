@@ -13,15 +13,14 @@ const videoConstraints = {
   facingMode: "user"
 };
 
-// const MODEL_URL = "/models";
-//console.log(faceapi.nets)
-
 class Game extends Component {
 
   state = {
     expression: "",
     color: "black",
-    current_position: 0
+    current_position: 0,
+    score: 0
+
   };
 
   TEST_COLOR = "red";
@@ -41,9 +40,10 @@ class Game extends Component {
     document.body.style.backgroundColor = "black";
     console.log("component did mount");
     await this.loadModels();
+    //TO DO add these to higher scope so theyre not re-declared every time
     const input = this.refs.webcam.video;
     const canvas = this.refs.canvas;
-    const container_div = this.refs.container;
+    //const container_div = this.refs.container;
     const displaySize = { width: 400, height: 400 };
     // let degrees = 90;
     // let frame = 0;
@@ -106,7 +106,8 @@ class Game extends Component {
       case "angry":
         if (dom_exp === this.round[this.state.current_position]){
           let position =  ((this.state.current_position + 1) % this.round_length)
-          this.setState({expression: "angry", color: this.angryColor, current_position: position})
+          let new_score = this.state.score + 1;
+          this.setState({expression: "angry", color: this.angryColor, current_position: position, score: new_score})
         }
         else {
             this.setState({ expression: "angry", color: this.angryColor  });
@@ -116,7 +117,8 @@ class Game extends Component {
       case "disgusted":
           if (dom_exp === this.round[this.state.current_position]){
             let position =  ((this.state.current_position + 1) % this.round_length)
-            this.setState({expression: "disgusted", color: this.disgustedColor, current_position: position})
+            let new_score = this.state.score + 1;
+            this.setState({expression: "disgusted", color: this.disgustedColor, current_position: position, score: new_score})
           }
           else {
               this.setState({ expression: "disgusted", color: this.disgustedColor  });
@@ -126,7 +128,8 @@ class Game extends Component {
       case "fearful":
           if (dom_exp === this.round[this.state.current_position]){
             let position =  ((this.state.current_position + 1) % this.round_length)
-            this.setState({expression: "fearful", color: this.fearfulColor, current_position: position})
+            let new_score = this.state.score + 1;
+            this.setState({expression: "fearful", color: this.fearfulColor, current_position: position, score: new_score})
           }
           else {
               this.setState({ expression: "fearful", color: this.fearfulColor  });
@@ -136,7 +139,8 @@ class Game extends Component {
       case "happy":
           if (dom_exp === this.round[this.state.current_position]){
             let position =  ((this.state.current_position + 1) % this.round_length)
-            this.setState({expression: "happy", color: this.happyColor, current_position: position})
+            let new_score = this.state.score + 1;
+            this.setState({expression: "happy", color: this.happyColor, current_position: position, score: new_score})
           }
           else {
               this.setState({ expression: "happy", color: this.happyColor  });
@@ -150,7 +154,8 @@ class Game extends Component {
       case "sad":
           if (dom_exp === this.round[this.state.current_position]){
             let position =  ((this.state.current_position + 1) % this.round_length)
-            this.setState({expression: "sad", color: this.sadColor, current_position: position})
+            let new_score = this.state.score + 1;
+            this.setState({expression: "sad", color: this.sadColor, current_position: position, score: new_score})
           }
           else {
               this.setState({ expression: "sad", color: this.sadColor  });
@@ -160,7 +165,8 @@ class Game extends Component {
       case "surprised":
         if (dom_exp === this.round[this.state.current_position]){
           let position =  ((this.state.current_position + 1) % this.round_length)
-            this.setState({expression: "surprised", color: this.shockedColor, current_position: position})
+          let new_score = this.state.score + 1;
+            this.setState({expression: "surprised", color: this.shockedColor, current_position: position, score: new_score})
           }
           else {
               this.setState({ expression: "surprised", color: this.shockedColor  });
@@ -186,9 +192,12 @@ class Game extends Component {
 
   restart = () =>{
     this.setState({
-      current_position: 0
+      current_position: 0,
+      score: 0
     })
-
+  }
+  goHome=()=>{
+    this.props.history.push("/")
   }
 
   render() {
@@ -226,6 +235,9 @@ class Game extends Component {
         </div>
         <div className="row footer">
             <button className="restart" onClick={this.restart} >Restart</button>
+            <button className="goHome" onClick={this.goHome} >Go Home</button>
+            <div className="score">Faces Accumulated : {this.state.score}</div>
+            
         </div>
       </>
     );
