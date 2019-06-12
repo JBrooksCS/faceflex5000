@@ -128,8 +128,6 @@ class Game extends Component {
   };
 
   async loadModels() {
-    //await faceapi.loadModels(MODEL_URL)
-    //const input = this.refs.webcam
     await faceapi.nets.tinyFaceDetector.loadFromUri("/models");
     await faceapi.nets.faceLandmark68Net.loadFromUri("/models");
     // await faceapi.nets.faceLandmark68TinyNet.loadFromUri("/models")
