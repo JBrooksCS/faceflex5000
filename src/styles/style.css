@@ -25,6 +25,7 @@ background-color: black; /* Green */
 }
 .restart:hover {
     background-color: #008CBA;
+    color:  black;
 }
 
 .notHighlighted{
@@ -42,6 +43,14 @@ background-color: black; /* Green */
 }
 .image{
   filter: blur(10px);
+}
+
+.topBar{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-top: 1.5em;
+  padding: 5px;
 }
 
 
