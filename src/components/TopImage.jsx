@@ -9,18 +9,10 @@ class TopBar extends Component {
   render() {
     return (
       <>
-        <img src={this.props.expression} width="100" height="100" />
-        <img
-          src={Checkmark}
-          style={{
-            position: "absolute",
-            // top: 0,
-            // left: 0,
-            height: "100px",
-            width: "100px",
-            display: this.props.completed
-          }}
-        />
+        <img src={this.props.expression}
+        width="100"
+        height="100"
+        style={{zIndex:0}} />
       </>
     );
   }
