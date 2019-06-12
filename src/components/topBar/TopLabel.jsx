@@ -10,7 +10,7 @@ class TopLabel extends Component {
         <img
               src={Checkmark}
               width="100"
-              height="100"
+              height="120"
               style={{
                 zIndex:1,
                 position: "absolute",

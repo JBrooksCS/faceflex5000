@@ -10,8 +10,11 @@ class TopBar extends Component {
     return (
       <>
         <img src={this.props.expression}
-        width="100"
-        height="100"
+        className = {this.props.isHighlighted ? "highlighted_image" : "image" }
+        // width="100"
+        // height="100"
+        width= {this.props.isHighlighted ? "110" : "100"}
+        height={this.props.isHighlighted ? "110" : "100"}
         style={{zIndex:0}} />
       </>
     );

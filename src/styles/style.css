@@ -12,10 +12,10 @@ body {
     bottom: 0;
 }
 .restart {
-background-color: rgb(127, 169, 184); /* Green */
-  border: none;
-  color: white;
-  padding: 10px 25px;
+background-color: black; /* Green */
+  border: 1px solid  #008CBA;
+  color:  #008CBA;
+  padding: 5px 10px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -38,6 +38,10 @@ background-color: rgb(127, 169, 184); /* Green */
   flex-direction: column;
   background-color: green;
   padding: 5px;
+  border-radius: .6em;
+}
+.image{
+  filter: blur(10px);
 }
 
 
