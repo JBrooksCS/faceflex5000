@@ -4,6 +4,8 @@ import ReactDOM from "react-dom";
 import * as faceapi from "face-api.js";
 import Webcam from "react-webcam";
 import TopBar from "./topBar/TopBar";
+import "../styles/style.css"
+
 
 const videoConstraints = {
   width: 200,
@@ -15,18 +17,25 @@ const videoConstraints = {
 //console.log(faceapi.nets)
 
 class Game extends Component {
+
   state = {
-    expression: "neutral",
-    color: "black"
+    expression: "",
+    color: "black",
+    current_position: 0
   };
+
+  TEST_COLOR = "red";
   //Color variables - setting state to one of these depending on expression detected
   happyColor = "pink"
   disgustColor = "green"
   sadColor = "blue"
   shockedColor = "yellow"
   angryColor = "red"
-  scaredColor = "purple"
+  fearfulColor = "purple"
   neutralColor = "black"
+  //Round 1 emotion array
+  round = ["happy", "sad", "surprised", "angry", "disgusted", "fearful"]
+  round_length = this.round.length
 
   async componentDidMount() {
     document.body.style.backgroundColor = "black";
@@ -36,15 +45,11 @@ class Game extends Component {
     const canvas = this.refs.canvas;
     const container_div = this.refs.container;
     const displaySize = { width: 400, height: 400 };
-    let isCleared = true;
-    let degrees = 90;
-    let frame = 0;
+    // let degrees = 90;
+    // let frame = 0;
     faceapi.matchDimensions(canvas, displaySize);
-
-    //console.log(input)
-    //Start of async?
     //console.log(canvas)
-    const useTinyModel = true;
+    // const useTinyModel = true;
 
     setInterval(async () => {
       const detections = await faceapi
@@ -54,10 +59,13 @@ class Game extends Component {
         )
         .withFaceLandmarks()
         .withFaceExpressions();
+      //console.log("FACE TO MAKE - ", this.round[this.state.current_position])
       //frame++;
       const resizedDetections = faceapi.resizeResults(detections, displaySize);
       let ctx = canvas.getContext("2d");
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // if (this.state.expression === "neutral")
+      // {ctx.clearRect(0, 0, canvas.width, canvas.height);}
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
       faceapi.draw.drawFaceLandmarks(canvas, resizedDetections);
 
       //rotate hue
@@ -96,19 +104,43 @@ class Game extends Component {
 
     switch (dom_exp) {
       case "angry":
-        this.setState({ expression: "angry", color: this.angryColor  });
+        if (dom_exp === this.round[this.state.current_position]){
+          let position =  ((this.state.current_position + 1) % this.round_length)
+          this.setState({expression: "angry", color: this.angryColor, current_position: position})
+        }
+        else {
+            this.setState({ expression: "angry", color: this.angryColor  });
+        }
         break;
 
       case "disgusted":
-        this.setState({ expression: "disgusted", color: this.disgustedColor });
+          if (dom_exp === this.round[this.state.current_position]){
+            let position =  ((this.state.current_position + 1) % this.round_length)
+            this.setState({expression: "disgusted", color: this.disgustedColor, current_position: position})
+          }
+          else {
+              this.setState({ expression: "disgusted", color: this.disgustedColor  });
+          }
         break;
 
       case "fearful":
-        this.setState({ expression: "fearful", color: this.fearfulColor });
+          if (dom_exp === this.round[this.state.current_position]){
+            let position =  ((this.state.current_position + 1) % this.round_length)
+            this.setState({expression: "fearful", color: this.fearfulColor, current_position: position})
+          }
+          else {
+              this.setState({ expression: "fearful", color: this.fearfulColor  });
+          }
         break;
 
       case "happy":
-        this.setState({ expression: "happy", color: this.happyColor });
+          if (dom_exp === this.round[this.state.current_position]){
+            let position =  ((this.state.current_position + 1) % this.round_length)
+            this.setState({expression: "happy", color: this.happyColor, current_position: position})
+          }
+          else {
+              this.setState({ expression: "happy", color: this.happyColor  });
+          }
         break;
 
       case "neutral":
@@ -116,11 +148,23 @@ class Game extends Component {
         break;
 
       case "sad":
-        this.setState({ expression: "sad", color: this.sadColor });
+          if (dom_exp === this.round[this.state.current_position]){
+            let position =  ((this.state.current_position + 1) % this.round_length)
+            this.setState({expression: "sad", color: this.sadColor, current_position: position})
+          }
+          else {
+              this.setState({ expression: "sad", color: this.sadColor  });
+          }
         break;
 
       case "surprised":
-        this.setState({ expression: "shocked", color: this.shockedColor });
+        if (dom_exp === this.round[this.state.current_position]){
+          let position =  ((this.state.current_position + 1) % this.round_length)
+            this.setState({expression: "surprised", color: this.shockedColor, current_position: position})
+          }
+          else {
+              this.setState({ expression: "surprised", color: this.shockedColor  });
+          }
         break;
 
       default:
@@ -140,16 +184,19 @@ class Game extends Component {
     // );
   }
 
-  //  startVideo() {
+  restart = () =>{
+    this.setState({
+      current_position: 0
+    })
 
-  // }
+  }
 
   render() {
     //console.log("rendering");
     return (
       // <script defer src="face-api.min.js" />
       <>
-        <TopBar expression={this.state.expression}/>
+        <TopBar current_position={this.state.current_position}/>
         <div
           ref="container"
           className="container"
@@ -177,9 +224,11 @@ class Game extends Component {
 
           <canvas id="canvas2" ref="canvas" style={{ position: "relative" }} />
         </div>
+        <div className="row footer">
+            <button className="restart" onClick={this.restart} >Restart</button>
+        </div>
       </>
     );
   }
 }
-
 export default Game;

@@ -1,0 +1,44 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding-bottom: 30px;
+}
+
+.row.footer {
+    display: flex;
+    align-items: flex-end;
+    position: fixed;
+    bottom: 0;
+}
+.restart {
+background-color: rgb(127, 169, 184); /* Green */
+  border: none;
+  color: white;
+  padding: 10px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: .1em;
+  margin: .5em;
+}
+.restart:hover {
+    background-color: #008CBA;
+}
+
+.notHighlighted{
+  display: flex;
+  flex-direction: column;
+  background-color: black;
+  padding: 0px;
+}
+.highlighted{
+  display: flex;
+  flex-direction: column;
+  background-color: green;
+  padding: 5px;
+}
+
+
+
