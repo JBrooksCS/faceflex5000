@@ -1,9 +1,32 @@
+@font-face{
+  font-family: "Fresnel";
+  src:url("fresnel.ttf")
+}
+@font-face{
+  font-family: "Reavers";
+  src:url("Reavers.ttf")
+}
+@font-face{
+  font-family: "Alectro";
+  src:url("Alectro.ttf")
+}
+
+
+
 html,
 body {
   height: 100%;
   margin: 0;
   padding-bottom: 30px;
-  background-color: black;
+
+}
+#myVideo {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  z-index: -1;
 }
 
 .row.footer {
@@ -25,11 +48,23 @@ background-color: black; /* Green */
   border-radius: .1em;
   margin: .5em;
 }
-.restart:hover {
+.restart:hover, .goHome:hover {
     background-color: #008CBA;
     color:  black;
 }
-
+.goHome {
+  background-color: black; /* Green */
+    border: 1px solid  #008CBA;
+    color:  #008CBA;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: .1em;
+    margin: .5em;
+  }
+  
 .notHighlighted{
   display: flex;
   flex-direction: column;
@@ -55,44 +90,133 @@ background-color: black; /* Green */
   padding: 5px;
 }
 .score{
-  font-family: monospace;
+  font-family: "Bitstream Vera Sans Mono", monospace;
   color: hotpink;
   font-size: 2.2em;
   align-self: center;
-  justify-self: center;
+  margin: auto;
+
 }
-.home-title{
-  color: hotpink;
+.title-text{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: .5em 0em 0em 0em;
+  padding-bottom: 1em;
+  font-weight: bold;
+
+}
+.home-containers{
+
+  display: flex;
+  justify-content: space-around;
+
 }
 
-.home-container{
-  font-size: 2.2em;
 
+
+.home-container-left{
+  background-color: rgb(255, 23, 93);
+  border-radius: .2em;
+  font-size: 2.5em;
+  display: flex;
+  flex-direction: column;
+  align-content: space-between;
+  box-shadow: 3px 5px blue;
+  opacity: .6;
+
+}
+.home-container-left:hover, .home-container-right:hover{
+  opacity: .8;
+
+}
+.home-container-right{
+  font-family: "Reavers";
+  width: 30%;
+  padding: 0em .8em;
+  font-size: 2em;
+  display: flex;
+  flex-direction: column;
+  align-content: space-between;
+  color: rgb(171, 204, 233);
+  background-color: #008CBA;
+  border-radius: .2em;
+  text-shadow: 3px 1.5px blue;
+  box-shadow: 3px 5px blue;
+  opacity: .7;
+}
+.home-link{
+  margin: 5%;
 }
 .nav-link{
-  font-family: monospace;
+  font-family: "Alectro";
   margin: 30 0 3px 0;
-  border: 1px solid blue;
-  background-color: blue;
-  color:  aqua;
+  color:  rgb(209, 206, 51);
   padding: .3em;
-
+  text-shadow: 5px 3px rgb(25, 82, 204);
 }
 .nav-link:clicked{
 
 }
-.goHome {
-    background-color: black; /* Green */
-      border: 1px solid  #008CBA;
-      color:  #008CBA;
-      padding: 5px 10px;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 16px;
-      border-radius: .1em;
-      margin: .5em;
-    }
+.nav-link:hover{
+  color: rgb(105, 250, 255);
+
+}
+
+.timer {
+  font-family: "Fresnel";
+  color: cornflowerblue;
+  font-size: 4em;
+}
+
+.text-gradient {
+  font-family: "Reavers";
+  width: 100%;
+
+  text-transform: uppercase;
+  display: inline-block;
+  font-size: 6em;
+
+  background: repeating-linear-gradient(90deg, aqua 0%, hotpink 50%, aqua 100%);
+  background-size: 200% auto;
+  background-position: 0 100%;
+  background-clip: text;
+  color: transparent;
+  animation: slidingGradient 2s infinite;
+  animation-fill-mode: forwards;
+  animation-timing-function: radial;
+}
+
+@keyframes slidingGradient { 
+    0%   { background-position: 0 0; }
+    100% { background-position: -200% 0; }
+}
+.hallOfFame{
+  display: flex;
+  justify-content: center;
+  padding-bottom: .3em;
+
+}
+
+.nameCardHeader{
+  display: flex;
+  flex-direction: row;
+  font-size: 50%;
+  justify-content: space-between;
+  color: gold;
+}
+
+.nameCard{
+  font-size: 50%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.name {
+  width: 30%;
+}
+
+
 
 
 
