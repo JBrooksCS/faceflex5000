@@ -27,7 +27,7 @@ class TopBar extends Component {
       //console.log("TopBar Rendering")
     return (
         <>
-      <div style={{display: "flex",flexDirection: "row",justifyContent: "space-around", marginTop: ".5px", padding: "5px"}}>
+      <div className="topBar" >
           <div className={this.checkIfHighlighted(0, this.props.current_position)}>
           <TopImage expression={happy} isHighlighted={ (this.props.current_position===0) ? true : false }/>
           <TopLabel completed={this.checkIfCompleted(0, this.props.current_position)} />

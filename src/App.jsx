@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import Game from "./components/Game";
-import { withRouter, Route } from 'react-router'
+import Home from "./components/Home"
+//import { withRouter, Route } from 'react-router'
+import { Route, Redirect } from 'react-router-dom'
+
 
 class App extends Component {
 
@@ -17,12 +20,14 @@ class App extends Component {
   render() {
     return (
       <>
-        <div>
-
-        <Game />
+        <Route exact path="/game" component={Game}/>
 
 
-        </div>
+        <Route exact path="/" component={Home} />
+
+
+
+
       </>
     );
   }
