@@ -42,7 +42,7 @@ class Home extends Component {
           </div>
 
           <div className="home-link">
-            <Link className="nav-link" to="/">
+            <Link className="nav-link" to="/faceupload">
               CONTRIBUTE YOUR FACE
             </Link>
           </div>
