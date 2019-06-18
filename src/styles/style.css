@@ -98,7 +98,7 @@ background-color: black; /* Green */
   margin: auto;
 
 }
-.title-text{
+.Ftitle-text{
   width: 100%;
   display: flex;
   justify-content: center;
@@ -186,6 +186,13 @@ background-color: black; /* Green */
   animation: slidingGradient 2s infinite;
   animation-fill-mode: forwards;
   animation-timing-function: radial;
+
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: .5em 0em 0em 0em;
+  padding-bottom: .1em;
+  font-weight: bold;
 }
 
 @keyframes slidingGradient { 
@@ -235,6 +242,15 @@ background-color: black; /* Green */
 .makeAFace{
   font-family: "Reavers";
 
+}
+.signOutDiv{
+  display: flex;
+  justify-content: flex-end;
+}
+.signOut{
+  background-color: aqua;
+  opacity: .5;
+  padding: 1em;
 }
 
 

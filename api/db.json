@@ -1,25 +1,4 @@
 {
   "profiles": [
-    {
-      "email": "StrangeHandle@gmail.com",
-      "username": "strangehandle",
-      "password": "ohyeah",
-      "photo": null,
-      "id": 1
-    },
-    {
-      "email": "StrangeHandle@gmail.com",
-      "username": "StrangeHandle",
-      "password": "password",
-      "photo": null,
-      "id": 2
-    },
-    {
-      "email": "StrangeHandle@gmail.com",
-      "username": "Strangey",
-      "password": "passwords",
-      "photo": null,
-      "id": 3
-    }
   ]
 }

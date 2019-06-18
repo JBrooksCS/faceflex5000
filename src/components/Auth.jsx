@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-//import * as firebase from "firebase/app";
+import * as firebase from "firebase/app";
 import Title from "./Title";
 import video from "./particles.mp4";
 import { Link } from "react-router-dom";
@@ -23,9 +23,18 @@ class Auth extends Component {
   // For modal
   toggle = () => {
     console.log("state", this.state);
-    this.setState(prevState => ({
-      modal: !prevState.modal
-    }));
+    // this.setState(prevState => ({
+    //   modal: !prevState.modal
+    // }));
+    this.setState({
+      email: null,
+      password: null,
+      photo: null,
+      modal: false,
+      error: []
+    })
+
+
   };
 
   // handleChange = (e) => {
@@ -37,12 +46,13 @@ class Auth extends Component {
       modal: true,
       error: []
     };
-    console.log("EMail Val ",this.refs.signUpEmail.value)
+    console.log("EMail Val ", this.refs.signUpEmail.value);
     newState.modal = !this.state.modal;
     this.setState(newState);
   };
 
   login = e => {
+    
     const newState = {
       modal: true,
       error: []
@@ -52,10 +62,13 @@ class Auth extends Component {
       .auth()
       .signInWithEmailAndPassword(this.state.email, this.state.password)
       .then(() => {
-        this.props.history.push("/home");
+        var user = firebase.auth().currentUser;
+        console.log("Made it past Log In, User :", user.uid)
+        sessionStorage.setItem('session_id', user.uid)
+        this.props.history.push("/");
       })
-      .then(() => {})
       .catch(error => {
+        console.log("ERROR", error);
         console.log("ERROR", error);
         newState.modal = !this.state.modal;
         newState.error = error.message;
@@ -65,7 +78,6 @@ class Auth extends Component {
   signup = e => {
     let newUser = {
       email: this.state.email,
-      username: this.state.username,
       password: this.state.password,
       photo: this.state.photo
     };
@@ -82,17 +94,29 @@ class Auth extends Component {
       })
       .catch(error => {
         console.log("ERROR", error);
-        console.log("ERROR Status ", error.status);
+        console.log("ERROR Status ", error);
         newState.modal = !this.state.modal;
         newState.error = error.message;
         this.setState(newState);
-      })
+      });
     //   .then((_next)=>{
     //       saveProfile(newUser)
     //   })
 
     //saveProfile(newUser)
   };
+//   authListener = () => {
+//     fire.auth().onAuthStateChanged(function(user) {
+//       if (user) {
+//         console.log("AUTH LISTENER User is signed in.");
+//       } else {
+//         console.log("AUTH LISTENER No user is signed in.");
+//       }
+//     });
+//   };
+
+  
+  testPrint = () => { console.log("BUTTON WORKS")}
 
   render() {
     return (
@@ -100,15 +124,44 @@ class Auth extends Component {
         <video autoPlay={true} muted={true} loop={true} id="myVideo">
           <source src={video} type="video/mp4" />
         </video>
+
         <div className="home-title">
-          <Link className="nav-link" to="/game">
+          <Link className="nav-link" to="/">
             <Title />
           </Link>
         </div>
+        
 
         <div className="home-containers">
-          <div className="home-container-left">
+          <div className="home-container-right">
             <h3>Sign In</h3>
+            <Form onSubmit={this.login}>
+              <div>Email</div>
+              <input
+                control="input"
+                type="text"
+                label="Email"
+                onChange={e => this.setState({ email: e.target.value })}
+                placeholder="you@email.com"
+                ref="signInEmail"
+              />
+              <div>Password</div>
+              <input
+                control="input"
+                type="text"
+                label="Password"
+                onChange={e => this.setState({ password: e.target.value })}
+                placeholder="Password"
+              />
+              <button
+                type="submit"
+                content="Submit"
+                color="purple"
+                onClick={this.testPrint}
+              >
+                SIGN IN
+              </button>
+            </Form>
           </div>
 
           <div className="home-container-right">
@@ -122,14 +175,6 @@ class Auth extends Component {
                 onChange={e => this.setState({ email: e.target.value })}
                 placeholder="you@email.com"
                 ref="signUpEmail"
-              />
-              <div>Username</div>
-              <input
-                control="input"
-                type="text"
-                label="Username"
-                onChange={e => this.setState({ username: e.target.value })}
-                placeholder="Username"
               />
               <div>Password</div>
               <input
@@ -151,14 +196,16 @@ class Auth extends Component {
                 type="submit"
                 content="Submit"
                 color="purple"
-                onClick={() => this.signup()}
+                //this was giving me problems earlier with () or not
+                onClick={this.signup}
               >
                 SUBMIT
               </button>
+
               <Modal
                 isOpen={this.state.modal}
                 toggle={this.toggle}
-                className=""
+                className="modal"
                 onClose={this.closeModal}
                 centered={false}
               >
