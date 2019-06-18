@@ -18,6 +18,7 @@ body {
   height: 100%;
   margin: 0;
   padding-bottom: 30px;
+  position: relative;
 
 }
 #myVideo {
@@ -123,11 +124,11 @@ background-color: black; /* Green */
   flex-direction: column;
   align-content: space-between;
   box-shadow: 3px 5px blue;
-  opacity: .6;
+  opacity: .8;
 
 }
 .home-container-left:hover, .home-container-right:hover{
-  opacity: .8;
+  opacity: .9;
 
 }
 .home-container-right{
@@ -143,7 +144,7 @@ background-color: black; /* Green */
   border-radius: .2em;
   text-shadow: 3px 1.5px blue;
   box-shadow: 3px 5px blue;
-  opacity: .7;
+  opacity: .93;
 }
 .home-link{
   margin: 5%;
@@ -215,7 +216,26 @@ background-color: black; /* Green */
 .name {
   width: 30%;
 }
+.modal{
+  font-family: "Reavers";
+  background-color: hotpink;
+  position: fixed;
+  padding: 1em;
+  border-radius: .1em;
+  width: 30%;
+  opacity: 1;
+  color: aliceblue;
+  top: 30%;
+  left: 50%;
+}
+.close{
+  margin-bottom: 2em;
+}
 
+.makeAFace{
+  font-family: "Reavers";
+
+}
 
 
 

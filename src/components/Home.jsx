@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "../styles/style.css";
 import Leaderboard from "./Leaderboard"
 import Title from "./Title"
+import Auth from "./Auth"
 import video from "./particles.mp4"
 
 class Home extends Component {
@@ -36,7 +37,7 @@ class Home extends Component {
           </div>
 
           <div className="home-link">
-            <Link className="nav-link" to="/">
+            <Link className="nav-link" to="/auth">
               SIGN IN / UP
             </Link>
           </div>
