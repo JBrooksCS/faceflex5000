@@ -15,6 +15,7 @@ class Title extends Component {
             <span className="letters">l</span>
             <span className="letters">e</span>
             <span className="letters">x</span>
+            <span className="letters">-</span>
             <span className="letters">5</span>
             <span className="letters">0</span>
             <span className="letters">0</span>

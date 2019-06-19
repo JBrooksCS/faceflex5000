@@ -10,6 +10,11 @@
   font-family: "Alectro";
   src:url("Alectro.ttf")
 }
+@font-face{
+  font-family: "LED";
+  src:url("LED.ttf")
+}
+
 
 
 
@@ -18,6 +23,7 @@ body {
   height: 100%;
   margin: 0;
   padding-bottom: 30px;
+  position: relative;
 
 }
 #myVideo {
@@ -97,7 +103,7 @@ background-color: black; /* Green */
   margin: auto;
 
 }
-.title-text{
+.Ftitle-text{
   width: 100%;
   display: flex;
   justify-content: center;
@@ -112,9 +118,6 @@ background-color: black; /* Green */
   justify-content: space-around;
 
 }
-
-
-
 .home-container-left{
   background-color: rgb(255, 23, 93);
   border-radius: .2em;
@@ -123,11 +126,10 @@ background-color: black; /* Green */
   flex-direction: column;
   align-content: space-between;
   box-shadow: 3px 5px blue;
-  opacity: .6;
-
+  opacity: .8;
 }
 .home-container-left:hover, .home-container-right:hover{
-  opacity: .8;
+  opacity: .9;
 
 }
 .home-container-right{
@@ -143,7 +145,33 @@ background-color: black; /* Green */
   border-radius: .2em;
   text-shadow: 3px 1.5px blue;
   box-shadow: 3px 5px blue;
-  opacity: .7;
+  opacity: .93;
+}
+.auth-containers{
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.auth-container-right:hover{
+  opacity: 1;
+
+}
+.auth-container-right{
+  font-family: "Reavers";
+  width: 30%;
+  padding: 0em .8em;
+  font-size: 2em;
+  display: flex;
+  flex-direction: column;
+  align-content: space-between;
+  color: rgb(171, 204, 233);
+  background-color: #008CBA;
+  border-radius: .2em;
+  text-shadow: 3px 1.5px blue;
+  box-shadow: 3px 5px blue;
+  opacity: .93;
+  padding-bottom: 2em;
+  padding-top: 1em;
 }
 .home-link{
   margin: 5%;
@@ -185,7 +213,24 @@ background-color: black; /* Green */
   animation: slidingGradient 2s infinite;
   animation-fill-mode: forwards;
   animation-timing-function: radial;
+
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: .5em 0em 0em 0em;
+  padding-bottom: .1em;
+  font-weight: bold;
 }
+#authHeader1, #authHeader2{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  color: hotpink;
+  filter: drop-shadow(6px 5px 1px #4444dd);
+
+
+}
+
 
 @keyframes slidingGradient { 
     0%   { background-position: 0 0; }
@@ -197,7 +242,6 @@ background-color: black; /* Green */
   padding-bottom: .3em;
 
 }
-
 .nameCardHeader{
   display: flex;
   flex-direction: row;
@@ -215,7 +259,47 @@ background-color: black; /* Green */
 .name {
   width: 30%;
 }
+.makeAFace{
+  font-family: "Reavers";
 
+}
+.signOutDiv{
+  display: flex;
+  justify-content: flex-end;
+}
+.signOut{
+  background-color: aqua;
+  opacity: .5;
+  padding: 1em;
+}
+.modalHeader{
+  background-color: #008CBA;
+  color: aqua;
+  text-shadow: 2px 1px rgb(233, 111, 11);
+  font-family: "Reavers";
+
+}
+
+.modalBody{
+  background-color: #008CBA;
+  color: hotpink;
+  font-size: 1.5em;
+}
+.modalFooter{
+  background-color: #008CBA;
+}
+#modalButton{
+  color: gold;
+  background-color: blue;
+}
+#signin_button{
+  margin-top: 6em;
+  background-color: rgb(255, 187, 0);
+}
+#signup_button{
+  background-color: rgb(255, 187, 0);
+
+}
 
 
 
