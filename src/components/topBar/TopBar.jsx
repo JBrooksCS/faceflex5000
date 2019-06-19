@@ -7,7 +7,7 @@ import angry from "./photos/angry_cage.jpg";
 import fearful from "./photos/osmond_scared.jpeg";
 import TopImage from "../TopImage"
 import TopLabel from "./TopLabel";
-
+ 
 
 class TopBar extends Component {
 

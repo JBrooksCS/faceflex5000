@@ -222,7 +222,7 @@ class Auth extends Component {
                 onChange={e =>
                   this.setState({ signin_password: e.target.value })
                 }
-                placeholder="Password"
+                placeholder="password"
                 value={this.state.signin_password}
                 style={{fontFamily: "Times New Roman"}}
 
@@ -260,7 +260,7 @@ class Auth extends Component {
               className = "form-control"
                 control="input"
                 type="text"
-                label="Password"
+                label="password"
                 onChange={e =>
                   this.setState({ signup_password: e.target.value })
                 }

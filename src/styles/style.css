@@ -15,9 +15,6 @@
   src:url("LED.ttf")
 }
 
-
-
-
 html,
 body {
   height: 100%;
@@ -69,8 +66,7 @@ background-color: black; /* Green */
     font-size: 16px;
     border-radius: .1em;
     margin: .5em;
-  }
-  
+}
 .notHighlighted{
   display: flex;
   flex-direction: column;
@@ -115,7 +111,7 @@ background-color: black; /* Green */
 .home-containers{
 
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
 
 }
 .home-container-left{
@@ -269,8 +265,14 @@ background-color: black; /* Green */
 }
 .signOut{
   background-color: aqua;
-  opacity: .5;
+  color: blue;
+  opacity: .6;
   padding: 1em;
+  border-radius: .3em;
+  font-family: "LED";
+}
+.signOut:hover{
+  opacity: 1;
 }
 .modalHeader{
   background-color: #008CBA;
