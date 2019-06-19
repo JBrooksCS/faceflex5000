@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from "react"; 
 import Checkmark from "./photos/checkmark.png"
 
 class TopLabel extends Component {
