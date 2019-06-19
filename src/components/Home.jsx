@@ -15,10 +15,10 @@ class Home extends Component {
     let logged_in_user = fire.auth().currentUser;
     this.setState({
       user: logged_in_user
-    })
-    console.log("Home Mounted")
+    });
+    console.log("Home Mounted");
   };
-  
+
   signOut = () => {
     fire
       .auth()
@@ -30,7 +30,9 @@ class Home extends Component {
       .then(() => {
         this.props.history.push("/");
       })
-      .then(()=> {this.setState({user: null})})
+      .then(() => {
+        this.setState({ user: null });
+      })
       .catch(error => {
         const newState = {
           modal: false,
@@ -50,15 +52,7 @@ class Home extends Component {
         <video autoPlay={true} muted={true} loop={true} id="myVideo">
           <source src={video} type="video/mp4" />
         </video>
-        {
-          (this.state.user) ? (
-        <div className="signOutDiv" >
-          <button className="signOut" onClick={this.signOut}>
-            Sign Out
-          </button>
-        </div>
-          ) : (<div></div>)
-        }
+
         <div className="home-title" style={{ padding: "1em 0 3em 0" }}>
           <Title />
         </div>
@@ -84,6 +78,17 @@ class Home extends Component {
           </div>
           <div className="home-container-right">
             <Leaderboard />
+          </div>
+          <div className="row footer">
+            {this.state.user ? (
+              <div className="signOutDiv">
+                <button className="signOut" onClick={this.signOut}>
+                  Sign Out
+                </button>
+              </div>
+            ) : (
+              <div />
+            )}
           </div>
         </div>
       </>

@@ -21,6 +21,9 @@ class FaceUpload extends Component {
         displayButtons: "none"
       })
   }
+  goHome = () => {
+    this.props.history.push("/");
+  };
 
   render() {
     return (
@@ -63,7 +66,14 @@ class FaceUpload extends Component {
           >
             Discard
           </button>
+          
+          
         </div>
+        <div className="row footer">
+        <button className="goHome" onClick={this.goHome}>
+            Home
+          </button>
+          </div>
       </>
     );
   }
