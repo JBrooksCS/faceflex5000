@@ -28,7 +28,7 @@ class Game extends Component {
   //TEST_COLOR = "red";
   //Color variables - setting state to one of these depending on expression detected
   happyColor = "pink";
-  disgustColor = "green";
+  disgustedColor = "green";
   sadColor = "blue";
   shockedColor = "yellow";
   angryColor = "red";
@@ -127,7 +127,7 @@ class Game extends Component {
       case "angry":
         //if the expression detected is equal to the expression we want to match
         if (dom_exp === this.round[this.state.current_position].exp) {
-          let position = (this.state.current_position + 1) % (this.round_length - 1);
+          let position = (this.state.current_position + 1) % (this.round_length);
           let new_score = this.state.score + 1;
           this.setState({
             expression: "angry",
@@ -142,7 +142,7 @@ class Game extends Component {
 
       case "disgusted":
         if (dom_exp === this.round[this.state.current_position].exp) {
-          let position = (this.state.current_position + 1) % (this.round_length - 1);
+          let position = (this.state.current_position + 1) % (this.round_length);
           let new_score = this.state.score + 1;
           this.setState({
             expression: "disgusted",
@@ -160,7 +160,7 @@ class Game extends Component {
 
       case "fearful":
         if (dom_exp === this.round[this.state.current_position].exp) {
-          let position = (this.state.current_position + 1) % (this.round_length - 1);
+          let position = (this.state.current_position + 1) % (this.round_length);
           let new_score = this.state.score + 1;
           this.setState({
             expression: "fearful",
@@ -175,7 +175,7 @@ class Game extends Component {
 
       case "happy":
         if (dom_exp === this.round[this.state.current_position].exp) {
-          let position = (this.state.current_position + 1) % (this.round_length - 1);
+          let position = (this.state.current_position + 1) % (this.round_length);
           let new_score = this.state.score + 1;
           this.setState({
             expression: "happy",
@@ -194,7 +194,7 @@ class Game extends Component {
 
       case "sad":
         if (dom_exp === this.round[this.state.current_position].exp) {
-          let position = (this.state.current_position + 1) % (this.round_length - 1);
+          let position = (this.state.current_position + 1) % (this.round_length);
           let new_score = this.state.score + 1;
           this.setState({
             expression: "sad",
@@ -209,7 +209,7 @@ class Game extends Component {
 
       case "surprised":
         if (dom_exp === this.round[this.state.current_position].exp) {
-          let position = (this.state.current_position + 1) % (this.round_length - 1);
+          let position = (this.state.current_position + 1) % (this.round_length);
           let new_score = this.state.score + 1;
           this.setState({
             expression: "surprised",
