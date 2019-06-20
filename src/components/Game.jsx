@@ -4,6 +4,7 @@ import ReactDOM from "react-dom";
 import * as faceapi from "face-api.js";
 import Webcam from "react-webcam";
 import TopBar from "./topBar/TopBar";
+import ALL_IMAGES from "./topBar/ALL_IMAGES"
 import "../styles/style.css";
 
 const videoConstraints = {
@@ -20,10 +21,11 @@ class Game extends Component {
     score: 0,
     startTime: 0,
     endTime: 0,
-    timeRemaining: 0
+    timeRemaining: 0,
+    faceObjects: []
   };
 
-  TEST_COLOR = "red";
+  //TEST_COLOR = "red";
   //Color variables - setting state to one of these depending on expression detected
   happyColor = "pink";
   disgustColor = "green";
@@ -33,12 +35,21 @@ class Game extends Component {
   fearfulColor = "purple";
   neutralColor = "black";
   //Round 1 emotion array
-  round = ["happy", "sad", "surprised", "angry", "disgusted", "fearful"];
-  round_length = this.round.length;
+  round = []//["happy", "sad", "surprised", "angry", "disgusted", "fearful"];
+  // round_length = this.round.length;
+  round_length = ALL_IMAGES.length;
 
   async componentDidMount() {
     document.body.style.backgroundColor = "black";
     console.log("component did mount");
+    // console.log("OG Images", ALL_IMAGES)
+    //Initialize state array with a random array of face objects
+    //this.round = this.randomizeArray(ALL_IMAGES)
+    this.round = ALL_IMAGES
+
+    console.log("Round Images", this.round[0].exp)
+
+
     await this.loadModels();
     //TO DO add these to higher scope so theyre not re-declared every time
     const input = this.refs.webcam.video;
@@ -64,7 +75,7 @@ class Game extends Component {
         )
         .withFaceLandmarks()
         .withFaceExpressions();
-      //console.log("FACE TO MAKE - ", this.round[this.state.current_position])
+      //console.log("FACE TO MAKE - ", this.round[this.state.current_position].exp)
       //frame++;
       const resizedDetections = faceapi.resizeResults(detections, displaySize);
       let ctx = canvas.getContext("2d");
@@ -110,12 +121,13 @@ class Game extends Component {
 
   //this.refs.container.style.backgroundColor = this.state.bg_color;
   changeWithExpression = dom_exp => {
-    console.log("FROM ", this.state.expression, "TO", dom_exp);
+    //console.log("FROM ", this.state.expression, "TO", dom_exp);
 
     switch (dom_exp) {
       case "angry":
-        if (dom_exp === this.round[this.state.current_position]) {
-          let position = (this.state.current_position + 1) % this.round_length;
+        //if the expression detected is equal to the expression we want to match
+        if (dom_exp === this.round[this.state.current_position].exp) {
+          let position = (this.state.current_position + 1) % (this.round_length - 1);
           let new_score = this.state.score + 1;
           this.setState({
             expression: "angry",
@@ -129,8 +141,8 @@ class Game extends Component {
         break;
 
       case "disgusted":
-        if (dom_exp === this.round[this.state.current_position]) {
-          let position = (this.state.current_position + 1) % this.round_length;
+        if (dom_exp === this.round[this.state.current_position].exp) {
+          let position = (this.state.current_position + 1) % (this.round_length - 1);
           let new_score = this.state.score + 1;
           this.setState({
             expression: "disgusted",
@@ -147,8 +159,8 @@ class Game extends Component {
         break;
 
       case "fearful":
-        if (dom_exp === this.round[this.state.current_position]) {
-          let position = (this.state.current_position + 1) % this.round_length;
+        if (dom_exp === this.round[this.state.current_position].exp) {
+          let position = (this.state.current_position + 1) % (this.round_length - 1);
           let new_score = this.state.score + 1;
           this.setState({
             expression: "fearful",
@@ -162,8 +174,8 @@ class Game extends Component {
         break;
 
       case "happy":
-        if (dom_exp === this.round[this.state.current_position]) {
-          let position = (this.state.current_position + 1) % this.round_length;
+        if (dom_exp === this.round[this.state.current_position].exp) {
+          let position = (this.state.current_position + 1) % (this.round_length - 1);
           let new_score = this.state.score + 1;
           this.setState({
             expression: "happy",
@@ -181,8 +193,8 @@ class Game extends Component {
         break;
 
       case "sad":
-        if (dom_exp === this.round[this.state.current_position]) {
-          let position = (this.state.current_position + 1) % this.round_length;
+        if (dom_exp === this.round[this.state.current_position].exp) {
+          let position = (this.state.current_position + 1) % (this.round_length - 1);
           let new_score = this.state.score + 1;
           this.setState({
             expression: "sad",
@@ -196,8 +208,8 @@ class Game extends Component {
         break;
 
       case "surprised":
-        if (dom_exp === this.round[this.state.current_position]) {
-          let position = (this.state.current_position + 1) % this.round_length;
+        if (dom_exp === this.round[this.state.current_position].exp) {
+          let position = (this.state.current_position + 1) % (this.round_length - 1);
           let new_score = this.state.score + 1;
           this.setState({
             expression: "surprised",
@@ -227,6 +239,21 @@ class Game extends Component {
     // );
   }
 
+  randomizeArray = (arrayToRandomize) => {
+    console.log("Made it TO randomize")
+    let arr_1 = arrayToRandomize
+    let arr_2 = []
+
+    while(arr_1.length !== 0){
+      let randomIndex = Math.floor(Math.random() * arr_1.length)
+      arr_2.push(arr_1[randomIndex])
+      arr_1.splice(randomIndex, 1)
+    }
+    console.log("Made it OUT randomize")
+
+    return (arr_2)
+  }
+
   restart = () => {
     let now = Math.floor(Date.now() / 1000);
     this.setState({
@@ -246,7 +273,7 @@ class Game extends Component {
     return (
       // <script defer src="face-api.min.js" />
       <>
-        <TopBar current_position={this.state.current_position} />
+        <TopBar current_position={this.state.current_position} round={this.round} round_length={this.round_length}/>
         <div
           ref="container"
           className="container"

@@ -1,15 +1,16 @@
 import React, { Component } from "react";
 import Checkmark from "./topBar/photos/checkmark.png"
 
-class TopBar extends Component {
+class TopImage extends Component {
     state = {
     }
 
  
   render() {
+    //console.log(" TOP IMAGE")
     return (
       <>
-        <img src={this.props.expression}
+        <img src={this.props.pictureSrc}
         className = {this.props.isHighlighted ? "highlighted_image" : "image" }
         // width="100"
         // height="100"
@@ -21,4 +22,4 @@ class TopBar extends Component {
   }
 }
 
-export default TopBar;
+export default TopImage;
