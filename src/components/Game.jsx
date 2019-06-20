@@ -21,7 +21,7 @@ class Game extends Component {
     score: 0,
     startTime: 0,
     endTime: 0,
-    timeRemaining: 0,
+    timeRemaining: 60,
     faceObjects: []
   };
 
@@ -117,6 +117,10 @@ class Game extends Component {
     this.setState({
       timeRemaining: this.state.endTime - Math.floor(Date.now() / 1000)
     });
+    if (this.state.timeRemaining <= 0){
+      sessionStorage.setItem("score", this.state.score)
+      this.props.history.push("/")
+    }
   }
 
   //this.refs.container.style.backgroundColor = this.state.bg_color;
