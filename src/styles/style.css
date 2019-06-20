@@ -74,12 +74,14 @@ background-color: black; /* Green */
   padding: 0px;
 }
 .highlighted{
+
   display: flex;
   flex-direction: column;
   background-color: hotpink;
   padding: 5px;
   border-radius: .6em;
 }
+
 .image{
   filter: blur(10px);
 }
