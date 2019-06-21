@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "../styles/style.css";
+import "../styles/shake.css"
 import Leaderboard from "./Leaderboard";
 import Title from "./Title";
 import video from "./particles.mp4";
@@ -129,7 +130,7 @@ class Home extends Component {
         <div className="home-containers">
           <div className="home-container-left">
             <div className="home-link">
-              <Link className="nav-link" to="/game">
+              <Link className="nav-link shake-slow shake-constant shake-constant--hover" to="/game">
                 PLAY THE GAME
               </Link>
             </div>
