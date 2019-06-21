@@ -12,7 +12,7 @@ class Leaderboard extends Component {
   render() {
     return (
       <>
-      <h5 className="hallOfFame">HALL OF FAME</h5>
+      <h3 className="hallOfFame">HALL OF FAME</h3>
       <div className="HOF_entries">
         <div className="nameCardHeader">
           <div className="nameHeader">NAME</div>

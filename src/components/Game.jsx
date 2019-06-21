@@ -67,7 +67,7 @@ class Game extends Component {
     let now = Math.floor(Date.now() / 1000);
     this.setState({
       startTime: now,
-      endTime: now + 15
+      endTime: now + 64
     });
 
     this.interval = setInterval(async () => {

@@ -164,7 +164,7 @@ class Home extends Component {
             {(this.state.user !== null) ? (
               <div className="signOutDiv">
                 <button className="signOut" onClick={this.signOut}>
-                 Log out of {this.state.username}
+                 Log out - {this.state.username}
                 </button>
               </div>
             ) : (
