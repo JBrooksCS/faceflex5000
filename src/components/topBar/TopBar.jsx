@@ -7,6 +7,8 @@ import React, { Component } from "react";
 // import fearful from "./photos/osmond_scared.jpeg";
 import TopImage from "../TopImage"
 import TopLabel from "./TopLabel";
+import "../../styles/shake.css"
+
 //import ALL_IMAGES from "./ALL_IMAGES"
   
 
@@ -53,23 +55,23 @@ class TopBar extends Component {
       <div className="topBar">
         <div >
           <TopImage pictureSrc={this.getPictures(TWO_BEFORE)} isHighlighted={ false }/>
-          {/* <TopLabel completed={this.checkIfCompleted(0, this.props.current_position)} /> */}
+          {/* <TopLabel completed={this.checkIfCompleted(TWO_BEFORE, this.props.current_position)} /> */}
           </div>
         <div >
           <TopImage pictureSrc={this.getPictures(ONE_BEFORE)} isHighlighted={ false }/>
-          {/* <TopLabel completed={this.checkIfCompleted(0, this.props.current_position)} /> */}
+          {/* <TopLabel completed={this.checkIfCompleted(ONE_BEFORE, this.props.current_position)} /> */}
           </div>
-      <div >
+      <div className="highlighted">
           <TopImage pictureSrc={this.getPictures((this.props.current_position % LENGTH))} isHighlighted={ true }/>
-          {/* <TopLabel completed={this.checkIfCompleted(0, this.props.current_position)} /> */}
+          {/* <TopLabel completed={this.checkIfCompleted(this.props.current_position, this.props.current_position)} /> */}
           </div>
       <div >
           <TopImage pictureSrc={this.getPictures(ONE_AFTER)} isHighlighted={false}/>
-          {/* <TopLabel completed={this.checkIfCompleted(1, this.props.current_position)} /> */}
+          {/* <TopLabel completed={this.checkIfCompleted(ONE_AFTER, this.props.current_position)} /> */}
           </div>
       <div >
           <TopImage pictureSrc={this.getPictures(TWO_AFTER)} isHighlighted={false}/>
-          {/* <TopLabel completed={this.checkIfCompleted(2, this.props.current_position)} /> */}
+          {/* <TopLabel completed={this.checkIfCompleted(TWO_AFTER, this.props.current_position)} /> */}
           </div>
       </div>
         ) : (<></>)}

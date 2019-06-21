@@ -11,12 +11,12 @@ class TopImage extends Component {
     return (
       <>
         <img src={this.props.pictureSrc}
-        className = {this.props.isHighlighted ? "highlighted_image" : "image" }
+        className = {this.props.isHighlighted ? "highlighted_image" : "image shake-slow shake-constant shake-constant--hover" }
         // width="100"
         // height="100"
-        width= {this.props.isHighlighted ? "110" : "100"}
-        height={this.props.isHighlighted ? "110" : "100"}
-        style={{zIndex:0}} />
+        width= {this.props.isHighlighted ? "150" : "100"}
+        height={this.props.isHighlighted ? "150" : "100"}
+        style={{zIndex:0, borderRadius:"4px" }} />
       </>
     );
   }

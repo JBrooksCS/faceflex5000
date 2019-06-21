@@ -128,7 +128,7 @@ class Game extends Component {
   }
 
   componentWillUnmount() {
-    // Remove this to see warning.
+   
     clearInterval(this.interval);
   }
 

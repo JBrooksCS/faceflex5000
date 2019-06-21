@@ -77,7 +77,7 @@ background-color: black; /* Green */
 
   display: flex;
   flex-direction: column;
-  background-color: hotpink;
+  background-color: #008CBA;
   padding: 5px;
   border-radius: .6em;
 }
