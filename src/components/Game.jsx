@@ -57,7 +57,7 @@ class Game extends Component {
     const canvas = this.refs.canvas;
     //const container_div = this.refs.container;
     this.setState({isLoading:false})
-    
+
     const displaySize = { width: 400, height: 400 };
     // let degrees = 90;
     // let frame = 0;
@@ -67,7 +67,7 @@ class Game extends Component {
     let now = Math.floor(Date.now() / 1000);
     this.setState({
       startTime: now,
-      endTime: now + 12
+      endTime: now + 15
     });
 
     this.interval = setInterval(async () => {

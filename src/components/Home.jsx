@@ -18,21 +18,31 @@ class Home extends Component {
   state = {
     user: null,
     modal: false,
-    score: 0
+    score: 0,
+    username: null
   };
 
   componentDidMount = () => {
+    let userName = localStorage.getItem("userEmail")
+    if(localStorage.getItem("userEmail")){
+      this.setState({username: this.parseUserName(userName)})  
+    }
     // let logged_in_user = fire.auth().currentUser;
     //Converting localStorage info into boolean since Modal was pissed it was a string
     let localStorageToBool = localStorage.getItem("scoreModal")
     let modalBool = (localStorageToBool == "true")
     this.setState({
-      user: localStorage.getItem("local_id"),
+      user: localStorage.getItem("userEmail"),
       modal: modalBool
     });
     //localStorage.setItem("scoreModal", false)
     console.log("Home Mounted");
   };
+
+  parseUserName = (email) => {
+    let name   = email.substring(0, email.lastIndexOf("@"));
+    return name
+  }
 
   signOut = () => {
     fire
@@ -153,7 +163,7 @@ class Home extends Component {
             {(this.state.user !== null) ? (
               <div className="signOutDiv">
                 <button className="signOut" onClick={this.signOut}>
-                  Sign Out
+                 Log out of {this.state.username}
                 </button>
               </div>
             ) : (

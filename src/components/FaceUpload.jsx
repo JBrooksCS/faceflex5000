@@ -35,7 +35,8 @@ class FaceUpload extends Component {
           style={{
             display: "flex",
             flexDirection: "column",
-            alignItems: "center"
+            alignItems: "center",
+            marginBottom: "10px"
           }}
         ><div className="home-title">
           <h1 className="title-text text-gradient" style={{margin: ".4em 0 0 0", fontSize: "3em"}}>Make A Face!</h1>
