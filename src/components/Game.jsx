@@ -15,14 +15,14 @@ const videoConstraints = {
 
 class Game extends Component {
   state = {
+    isLoading : true,
     expression: "",
     color: "black",
     current_position: 0,
     score: 0,
     startTime: 0,
     endTime: 0,
-    timeRemaining: 60,
-    faceObjects: []
+    timeRemaining: 60
   };
 
   //TEST_COLOR = "red";
@@ -40,6 +40,7 @@ class Game extends Component {
   round_length = ALL_IMAGES.length;
 
   async componentDidMount() {
+    
     document.body.style.backgroundColor = "black";
     console.log("component did mount");
     // console.log("OG Images", ALL_IMAGES)
@@ -55,6 +56,8 @@ class Game extends Component {
     const input = this.refs.webcam.video;
     const canvas = this.refs.canvas;
     //const container_div = this.refs.container;
+    this.setState({isLoading:false})
+    
     const displaySize = { width: 400, height: 400 };
     // let degrees = 90;
     // let frame = 0;
@@ -64,10 +67,10 @@ class Game extends Component {
     let now = Math.floor(Date.now() / 1000);
     this.setState({
       startTime: now,
-      endTime: now + 60
+      endTime: now + 12
     });
 
-    setInterval(async () => {
+    this.interval = setInterval(async () => {
       const detections = await faceapi
         .detectAllFaces(
           input,
@@ -118,9 +121,15 @@ class Game extends Component {
       timeRemaining: this.state.endTime - Math.floor(Date.now() / 1000)
     });
     if (this.state.timeRemaining <= 0){
-      sessionStorage.setItem("score", this.state.score)
+      localStorage.setItem("score", this.state.score)
+      localStorage.setItem("scoreModal", true)
       this.props.history.push("/")
     }
+  }
+
+  componentWillUnmount() {
+    // Remove this to see warning.
+    clearInterval(this.interval);
   }
 
   //this.refs.container.style.backgroundColor = this.state.bg_color;
@@ -276,8 +285,15 @@ class Game extends Component {
     //console.log("rendering");
     return (
       // <script defer src="face-api.min.js" />
+
+
       <>
-        <TopBar current_position={this.state.current_position} round={this.round} round_length={this.round_length}/>
+        <div>
+          {(this.isLoading) ? (<div>LOADING</div>) :
+        (<TopBar current_position={this.state.current_position} round={this.round} round_length={this.round_length}/>)
+          }
+        </div>
+        
         <div
           ref="container"
           className="container"

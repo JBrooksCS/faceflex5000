@@ -12,7 +12,7 @@ import {
   ModalBody,
   ModalFooter,
   Button,
-  Fade
+  //Fade
 } from "reactstrap";
 import sad from "./topBar/photos/sad_toby.jpeg"
 
@@ -82,7 +82,7 @@ class Auth extends Component {
       .then(() => {
         var user = firebase.auth().currentUser;
         console.log("Made it past Log In, User :", user.uid);
-        sessionStorage.setItem("session_id", user.uid);
+        localStorage.setItem("local_id", user.uid);
         this.props.history.push("/");
       })
       .catch(error => {
@@ -118,11 +118,9 @@ class Auth extends Component {
         newState.modal = !this.state.modal;
         newState.error = error.message;
         this.setState(newState);
-      });
-    //}
-    //   .then((_next)=>{
-    //       saveProfile(newUser)
-    //   })
+      }).then((_next)=>{
+          saveProfile(newUser)
+      })
 
     //saveProfile(newUser)
   };
@@ -136,9 +134,7 @@ class Auth extends Component {
   //     });
   //   };
 
-  testPrint = () => {
-    console.log("BUTTON WORKS");
-  };
+
 
   render() {
     return (
@@ -171,6 +167,7 @@ class Auth extends Component {
             isOpen={this.state.modal}
             toggle={this.toggle}
             className={this.props.className}
+
           >
             <ModalHeader className="modalHeader" toggle={this.toggle}>S H A M E !</ModalHeader>
             <ModalBody className="modalBody">
@@ -217,7 +214,7 @@ class Auth extends Component {
               <input
               className = "form-control"
                 control="input"
-                type="text"
+                type="password"
                 label="password"
                 onChange={e =>
                   this.setState({ signin_password: e.target.value })
@@ -259,7 +256,7 @@ class Auth extends Component {
               <input
               className = "form-control"
                 control="input"
-                type="text"
+                type="password"
                 label="password"
                 onChange={e =>
                   this.setState({ signup_password: e.target.value })
@@ -283,8 +280,6 @@ class Auth extends Component {
                 type="submit"
                 content="Submit"
                 color="purple"
-                //this was giving me problems earlier with () or not
-                //onClick={this.signup}
               >
                 SUBMIT
               </button>
