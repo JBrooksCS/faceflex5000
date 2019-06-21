@@ -126,9 +126,11 @@ background-color: black; /* Green */
   box-shadow: 3px 5px blue;
   opacity: .8;
 }
-.home-container-left:hover, .home-container-right:hover{
+.home-container-left:hover{
   opacity: .9;
-
+}
+.home-container-right:hover{
+  opacity: 1;
 }
 .home-container-right{
   font-family: "Reavers";
@@ -243,9 +245,10 @@ background-color: black; /* Green */
 .nameCardHeader{
   display: flex;
   flex-direction: row;
-  font-size: 50%;
+  font-size: 40%;
   justify-content: space-between;
   color: gold;
+  font-family: "LED";
 }
 
 .nameCard{
@@ -257,6 +260,11 @@ background-color: black; /* Green */
 .name {
   width: 30%;
 }
+.HOF_entries{
+  background-color: rgb(28, 52, 105);
+  border-radius: .3em;
+  padding: .4em;
+}
 .makeAFace{
   font-family: "Reavers";
 
@@ -264,13 +272,15 @@ background-color: black; /* Green */
 .signOutDiv{
   display: flex;
   justify-content: flex-end;
+  width: 100%;
 }
 .signOut{
   background-color: aqua;
+  margin: .8em;
   color: blue;
   opacity: .6;
   padding: 1em;
-  border-radius: .3em;
+  border-radius: .1em;
   font-family: "LED";
 }
 .signOut:hover{
@@ -281,20 +291,24 @@ background-color: black; /* Green */
   color: aqua;
   text-shadow: 2px 1px rgb(233, 111, 11);
   font-family: "Reavers";
-
+  border-radius: 4px;
 }
-
 .modalBody{
   background-color: #008CBA;
   color: hotpink;
+  text-shadow: 2px 2px #4444dd;
   font-size: 1.5em;
+  display: flex;
 }
 .modalFooter{
   background-color: #008CBA;
+  border-radius: 4px;
+  display: flex;
 }
 #modalButton{
-  color: gold;
+  color: rgb(255, 217, 0);
   background-color: blue;
+
 }
 #signin_button{
   margin-top: 6em;
@@ -302,8 +316,9 @@ background-color: black; /* Green */
 }
 #signup_button{
   background-color: rgb(255, 187, 0);
-
 }
+
+
 
 
 

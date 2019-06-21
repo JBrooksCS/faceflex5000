@@ -12,7 +12,7 @@ import {
   ModalBody,
   ModalFooter,
   Button,
-  Fade
+  //Fade
 } from "reactstrap";
 import sad from "./topBar/photos/sad_toby.jpeg"
 
@@ -29,13 +29,22 @@ class Auth extends Component {
     signup_password: "",
     photo: null,
     modal: false,
-    error: []
+    error: [],
+    hideSignIn: false
   };
   // For modal
   toggle = () => {
     //console.log("state", this.state);
     this.setState(prevState => ({
-      modal: !prevState.modal
+      modal: !prevState.modal,
+      signin_email: "",
+      signup_email: "",
+      signin_username: "",
+      signup_username: "",
+      signin_password: "",
+      signup_password: "",
+      photo: null,
+      error: []
     }));
   };
   //     this.setState(prevState => ({
@@ -81,8 +90,8 @@ class Auth extends Component {
       )
       .then(() => {
         var user = firebase.auth().currentUser;
-        console.log("Made it past Log In, User :", user.uid);
-        sessionStorage.setItem("session_id", user.uid);
+        console.log("Made it past Log In, User :", user);
+        localStorage.setItem("userEmail", user.email);
         this.props.history.push("/");
       })
       .catch(error => {
@@ -101,10 +110,11 @@ class Auth extends Component {
       photo: this.state.photo
     };
     e.preventDefault();
-    const newState = {
+    let newState = {
       modal: false,
-      error: []
-    };
+      error: [],
+      hideSignIn: true
+    }
     //console.log(newUser);
     //if (newUser.email && newUser.password) {
     fire
@@ -112,17 +122,24 @@ class Auth extends Component {
       .createUserWithEmailAndPassword(
         this.state.signup_email,
         this.state.signup_password
-      )
+      ).then(()=> {
+      this.setState(newState)
+      alert("Success! Now log in with your new account and prepare to FACEFLEX-5000")
+    })
       .catch(error => {
         console.log("ERROR", error);
-        newState.modal = !this.state.modal;
-        newState.error = error.message;
+        // newState.modal = 
+        // newState.error = 
+        newState = {
+          modal: !this.state.modal,
+          error: error.message,
+          hideSignIn: false
+        };
         this.setState(newState);
-      });
-    //}
-    //   .then((_next)=>{
-    //       saveProfile(newUser)
-    //   })
+      })
+    // .then((_next)=>{
+    //     saveProfile(newUser)
+    // })
 
     //saveProfile(newUser)
   };
@@ -136,46 +153,27 @@ class Auth extends Component {
   //     });
   //   };
 
-  testPrint = () => {
-    console.log("BUTTON WORKS");
-  };
+
 
   render() {
     return (
       <>
-        {/* <Modal
-      isOpen={this.state.modal}
-      toggle={this.toggle}
-      className={this.props.className}
-      onClose={this.closeModal}
-      centered={true}
-      //fade={true}
-    >
-      <ModalHeader className="modal-head" >
-        Login Error
-      </ModalHeader>
-      <ModalBody>{this.state.error}</ModalBody>
-      <ModalFooter>
-        <Button onClick={this.toggle}>
-          Got it
-        </Button>
-      </ModalFooter>
-    </Modal> */}
         <div>
           <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css"
           />
-          
+
           <Modal
             isOpen={this.state.modal}
             toggle={this.toggle}
             className={this.props.className}
+
           >
             <ModalHeader className="modalHeader" toggle={this.toggle}>S H A M E !</ModalHeader>
             <ModalBody className="modalBody">
               {this.state.error}
-              <img src={sad} alt=""/>
+              <img src={sad} alt="" />
             </ModalBody>
             <ModalFooter className="modalFooter">
               <Button id="modalButton" onClick={this.toggle}>
@@ -203,7 +201,7 @@ class Auth extends Component {
             <form onSubmit={this.login} >
               <div>Email</div>
               <input
-              className = "form-control"
+                className="form-control"
                 control="input"
                 type="text"
                 label="Email"
@@ -211,41 +209,41 @@ class Auth extends Component {
                 placeholder="email"
                 ref="signInEmail"
                 value={this.state.signin_email}
-                style={{fontFamily: "Times New Roman"}}
+                style={{ fontFamily: "Times New Roman" }}
               />
               <div>Password</div>
               <input
-              className = "form-control"
+                className="form-control"
                 control="input"
-                type="text"
+                type="password"
                 label="password"
                 onChange={e =>
                   this.setState({ signin_password: e.target.value })
                 }
                 placeholder="password"
                 value={this.state.signin_password}
-                style={{fontFamily: "Times New Roman"}}
+                style={{ fontFamily: "Times New Roman" }}
 
               />
               <button
-              className="btn btn-sml btn-block"
-              id="signin_button"
+                className="btn btn-sml btn-block"
+                id="signin_button"
                 type="submit"
                 content="Submit"
-                //style={{marginTop: "1em"}}
-                //onClick={this.login}
+              //style={{marginTop: "1em"}}
+              //onClick={this.login}
               >
                 SIGN IN
               </button>
             </form>
           </div>
 
-          <div className="auth-container-right">
+          <div className="auth-container-right" style={this.state.hideSignIn ? {display:"none"} : {display:"initial"}} >
             <h1 id="authHeader2">Sign Up</h1>
             <form onSubmit={this.signup}>
               <div>Email</div>
               <input
-              className = "form-control"
+                className="form-control"
                 control="input"
                 type="text"
                 label="Email"
@@ -253,24 +251,24 @@ class Auth extends Component {
                 placeholder="email"
                 ref="signUpEmail"
                 value={this.state.signup_email}
-                style={{fontFamily: "Times New Roman"}}
+                style={{ fontFamily: "Times New Roman" }}
               />
               <div>Password</div>
               <input
-              className = "form-control"
+                className="form-control"
                 control="input"
-                type="text"
+                type="password"
                 label="password"
                 onChange={e =>
                   this.setState({ signup_password: e.target.value })
                 }
                 placeholder="password"
                 value={this.state.signup_password}
-                style={{fontFamily: "Times New Roman"}}
+                style={{ fontFamily: "Times New Roman" }}
               />
               <div>Profile Photo</div>
               <input
-              className="btn btn-sm"
+                className="btn btn-sm"
                 control="input"
                 type="file"
                 label="Photo"
@@ -278,13 +276,11 @@ class Auth extends Component {
                 placeholder="Upload photo"
               />
               <button
-              className="btn btn-sml btn-block"
-              id="signup_button"
+                className="btn btn-sml btn-block"
+                id="signup_button"
                 type="submit"
                 content="Submit"
                 color="purple"
-                //this was giving me problems earlier with () or not
-                //onClick={this.signup}
               >
                 SUBMIT
               </button>

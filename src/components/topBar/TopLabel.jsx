@@ -9,6 +9,7 @@ class TopLabel extends Component {
       <>
         <img
               src={Checkmark}
+              alt="imagee"
               width="100"
               height="120"
               style={{

@@ -5,33 +5,58 @@ import Leaderboard from "./Leaderboard";
 import Title from "./Title";
 import video from "./particles.mp4";
 import fire from "../config/Fire";
+import {
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Button,
+  //Fade
+} from "reactstrap";
 
 class Home extends Component {
   state = {
-    user: null
+    user: null,
+    modal: false,
+    score: 0,
+    username: null
   };
 
   componentDidMount = () => {
-    let logged_in_user = fire.auth().currentUser;
+    let userName = localStorage.getItem("userEmail")
+    if(localStorage.getItem("userEmail")){
+      this.setState({username: this.parseUserName(userName)})  
+    }
+    // let logged_in_user = fire.auth().currentUser;
+    //Converting localStorage info into boolean since Modal was pissed it was a string
+    let localStorageToBool = localStorage.getItem("scoreModal")
+    let modalBool = (localStorageToBool == "true")
     this.setState({
-      user: logged_in_user
+      user: localStorage.getItem("userEmail"),
+      modal: modalBool
     });
+    //localStorage.setItem("scoreModal", false)
     console.log("Home Mounted");
   };
+
+  parseUserName = (email) => {
+    let name   = email.substring(0, email.lastIndexOf("@"));
+    return name
+  }
 
   signOut = () => {
     fire
       .auth()
       .signOut()
-      .then(function() {
-        sessionStorage.clear();
+      .then(function () {
+        localStorage.clear();
         console.log("Sign-out successful.");
       })
       .then(() => {
-        this.props.history.push("/");
+        this.setState({ user: null });
       })
       .then(() => {
-        this.setState({ user: null });
+        this.props.history.push("/");
       })
       .catch(error => {
         const newState = {
@@ -46,9 +71,54 @@ class Home extends Component {
       });
   };
 
+  closeModal = () => {
+    const newState = {
+      modal: true,
+      error: []
+    };
+    localStorage.setItem("scoreModal", false)
+
+    console.log("EMail Val ", this.refs.signUpEmail.value);
+    newState.modal = !this.state.modal;
+    this.setState(newState);
+  };
+
+  toggle = () => {
+    //console.log("state", this.state);
+    localStorage.setItem("scoreModal", false)
+    this.setState(prevState => ({
+      modal: !prevState.modal
+    }));
+
+  };
+
   render() {
     return (
       <>
+        {(localStorage.getItem("scoreModal") === "true") ?
+        <div>
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" />
+          <Modal
+            isOpen={this.state.modal}
+            toggle={this.toggle}
+            className={this.props.className}
+          >
+            <ModalHeader className="modalHeader" toggle={this.toggle}>Game over!</ModalHeader>
+            <ModalBody className="modalBody">
+              Congratulations! You earned {localStorage.getItem("score")} faces!
+
+            </ModalBody>
+            <ModalFooter className="modalFooter">
+              <Button id="modalButton" onClick={this.toggle}>
+                Got it!
+              </Button>
+            </ModalFooter>
+          </Modal>
+        </div>
+        : <></>
+        }
+
+
         <video autoPlay={true} muted={true} loop={true} id="myVideo">
           <source src={video} type="video/mp4" />
         </video>
@@ -63,12 +133,21 @@ class Home extends Component {
                 PLAY THE GAME
               </Link>
             </div>
-
-            <div className="home-link">
-              <Link className="nav-link" to="/auth">
-                SIGN IN / UP
+            { //Don't render login / signup if user is already logged in
+              (this.state.user === null) ?
+                (<div className="home-link">
+                  <Link className="nav-link" to="/auth">
+                    SIGN IN / UP
               </Link>
-            </div>
+                </div>)
+                :
+                (
+                  <div className="home-link">
+                    <Link className="nav-link" to="/">Profile Info</Link>
+                  </div>
+                )
+
+            }
 
             <div className="home-link">
               <Link className="nav-link" to="/faceupload">
@@ -79,16 +158,17 @@ class Home extends Component {
           <div className="home-container-right">
             <Leaderboard />
           </div>
+
           <div className="row footer">
-            {this.state.user ? (
+            {(this.state.user !== null) ? (
               <div className="signOutDiv">
                 <button className="signOut" onClick={this.signOut}>
-                  Sign Out
+                 Log out of {this.state.username}
                 </button>
               </div>
             ) : (
-              <div />
-            )}
+                <></>
+              )}
           </div>
         </div>
       </>

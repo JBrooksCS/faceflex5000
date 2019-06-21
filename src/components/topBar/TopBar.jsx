@@ -1,13 +1,13 @@
 import React, { Component } from "react";
-import happy from "./photos/smiling_goldblum.png";
-import disgust from "./photos/disgusted_wiig.png";
-import sad from "./photos/sad_toby.jpeg";
-import surprised from "./photos/shocked_cage.png";
-import angry from "./photos/angry_cage.jpg";
-import fearful from "./photos/osmond_scared.jpeg";
+// import happy from "./photos/smiling_goldblum.png";
+// import disgust from "./photos/disgusted_wiig.png";
+// import sad from "./photos/sad_toby.jpeg";
+// import surprised from "./photos/shocked_cage.png";
+// import angry from "./photos/angry_cage.jpg";
+// import fearful from "./photos/osmond_scared.jpeg";
 import TopImage from "../TopImage"
 import TopLabel from "./TopLabel";
-import ALL_IMAGES from "./ALL_IMAGES"
+//import ALL_IMAGES from "./ALL_IMAGES"
   
 
 class TopBar extends Component {
