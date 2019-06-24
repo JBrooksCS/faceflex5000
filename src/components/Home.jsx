@@ -25,12 +25,12 @@ class Home extends Component {
 
   componentDidMount = () => {
     let userName = localStorage.getItem("userEmail")
-    if(localStorage.getItem("userEmail")){
-      this.setState({username: this.parseUserName(userName)})  
+    if (localStorage.getItem("userEmail")) {
+      this.setState({ username: this.parseUserName(userName) })
     }
     // let logged_in_user = fire.auth().currentUser;
-    //Converting localStorage info into boolean since Modal was pissed it was a string
     let localStorageToBool = localStorage.getItem("scoreModal")
+    //Converting localStorage info into boolean since Modal was pissed it was a string
     let modalBool = (localStorageToBool == "true")
     this.setState({
       user: localStorage.getItem("userEmail"),
@@ -41,7 +41,7 @@ class Home extends Component {
   };
 
   parseUserName = (email) => {
-    let name   = email.substring(0, email.lastIndexOf("@"));
+    let name = email.substring(0, email.lastIndexOf("@"));
     return name
   }
 
@@ -97,26 +97,27 @@ class Home extends Component {
     return (
       <>
         {(localStorage.getItem("scoreModal") === "true") ?
-        <div>
-          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" />
-          <Modal
-            isOpen={this.state.modal}
-            toggle={this.toggle}
-            className={this.props.className}
-          >
-            <ModalHeader className="modalHeader" toggle={this.toggle}>Game over!</ModalHeader>
-            <ModalBody className="modalBody">
-              Congratulations! You earned {localStorage.getItem("score")} faces!
+          <div>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" />
+            <Modal
+              isOpen={this.state.modal}
+              toggle={this.toggle}
+              className={this.props.className}
+            >
+              <ModalHeader className="modalHeader" toggle={this.toggle}>Game over!</ModalHeader>
+              <ModalBody className="modalBody">
+                Congratulations! You earned {localStorage.getItem("score")} faces!
+              {(this.state.user) ? ("") : (" Sign In / Sign Up to add your score to the Hall of Fame!")}
 
-            </ModalBody>
-            <ModalFooter className="modalFooter">
-              <Button id="modalButton" onClick={this.toggle}>
-                Got it!
+              </ModalBody>
+              <ModalFooter className="modalFooter">
+                <Button id="modalButton" onClick={this.toggle}>
+                  Got it!
               </Button>
-            </ModalFooter>
-          </Modal>
-        </div>
-        : <></>
+              </ModalFooter>
+            </Modal>
+          </div>
+          : <></>
         }
 
 
@@ -157,6 +158,7 @@ class Home extends Component {
             </div>
           </div>
           <div className="home-container-right">
+            <h3 className="hallOfFame">HALL OF FAME</h3>
             <Leaderboard />
           </div>
 
@@ -164,7 +166,7 @@ class Home extends Component {
             {(this.state.user !== null) ? (
               <div className="signOutDiv">
                 <button className="signOut" onClick={this.signOut}>
-                 Log out - {this.state.username}
+                  Log out - {this.state.username}
                 </button>
               </div>
             ) : (

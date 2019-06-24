@@ -1,4 +1,27 @@
 {
   "profiles": [
+  ],
+  "leaderboard" : [
+    { "id": 1,
+      "name": "Jason",
+      "score": 35
+    },
+    {
+     "id": 2,
+
+      "name": "Steve",
+      "score": 200
+    },
+    {
+     "id": 5,
+
+      "name": "Josh",
+      "score": 2
+    },
+    {
+      "id": 3,
+      "name": "Dan",
+      "score": 4
+    }
   ]
 }

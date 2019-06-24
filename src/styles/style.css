@@ -93,23 +93,26 @@ background-color: black; /* Green */
   margin-top: 1.5em;
   padding: 5px;
 }
+.nameHeader{
+  color: gold;
+}
+.name {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  margin: 0%;
+  color: aqua;
+}
+.scoreHeader{
+  color: gold;
+
+}
 .score{
   font-family: "Bitstream Vera Sans Mono", monospace;
   color: hotpink;
-  font-size: 2.2em;
+
   align-self: center;
   margin: auto;
-
 }
-.Ftitle-text{
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  margin: .5em 0em 0em 0em;
-  padding-bottom: 1em;
-  font-weight: bold;
 
-}
 .home-containers{
 
   display: flex;
@@ -242,24 +245,9 @@ background-color: black; /* Green */
   padding-bottom: .3em;
 
 }
-.nameCardHeader{
-  display: flex;
-  flex-direction: row;
-  font-size: 40%;
-  justify-content: space-between;
-  color: gold;
-  font-family: "LED";
-}
 
-.nameCard{
-  font-size: 50%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-.name {
-  width: 30%;
-}
+
+
 .HOF_entries{
   background-color: rgb(28, 52, 105);
   border-radius: .3em;
@@ -318,6 +306,12 @@ background-color: black; /* Green */
   background-color: rgb(255, 187, 0);
 }
 
+.flex-grid {
+  display: flex;
+}
+.col {
+  flex: 1;
+}
 
 
 

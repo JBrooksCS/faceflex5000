@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 //import * as faceapi from "./face-api.min";
-import ReactDOM from "react-dom";
+// import ReactDOM from "react-dom";
 import * as faceapi from "face-api.js";
 import Webcam from "react-webcam";
 import TopBar from "./topBar/TopBar";
@@ -104,7 +104,7 @@ class Game extends Component {
         Object.keys(obj).forEach(function(key, index) {
           // key: the name of the object key, index: the ordinal position of the key within the object
           if (obj[key] > expression_confidence) {
-            //Then this exp is the new king
+            //Then this exp is the new top exp
             dominant_expression = key;
             expression_confidence = obj[key];
           }
