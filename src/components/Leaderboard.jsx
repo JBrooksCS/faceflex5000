@@ -1,59 +1,55 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "../styles/style.css";
+import { getLeaderboard } from "../API_Manager/leaderboard"
 
 class Leaderboard extends Component {
   state = {
-    leaders: []
+    leaders: [], 
+    listLength: 5
   };
 
-  componentDidMount() {}
+  componentDidMount() {
+    getLeaderboard().then(r => {
+
+      console.log("SCORES", r)
+
+      let sorted = r.sort((a, b) => b.score - a.score)
+
+      this.setState({ leaders: sorted })
+
+      
+      // console.log("LEADERS", this.state.leaders)
+      console.log("Sorted", sorted)
+
+
+
+    })
+
+  }
 
   render() {
+
+
     return (
       <>
-      <h3 className="hallOfFame">HALL OF FAME</h3>
-      <div className="HOF_entries">
-        <div className="nameCardHeader">
-          <div className="nameHeader">NAME</div>
-          <div className="numFacesHeader">#FACES</div>
-          <div className="quoteHeader">QUOTE</div>
-        </div>
-        <div className="nameCard">
-          <div className="name">Arya</div>
-          <div className="numFaces">{"45"}</div>
-          <div className="quote">{"Many Face God"}</div>
-        </div>
-        <div className="nameCard">
-          <div className="name">Jon</div>
-          <div className="numFaces">{"40"}</div>
-          <div className="quote">{"King of north"}</div>
-        </div>
-        <div className="nameCard">
-          <div className="name">Bran</div>
-          <div className="numFaces">{"38"}</div>
-          <div className="quote">{"3-Eyed Raven"}</div>
-        </div>
-        <div className="nameCard">
-          <div className="name">Ned</div>
-          <div className="numFaces">{"35"}</div>
-          <div className="quote">{"Wintrs coming"}</div>
-        </div>
-        <div className="nameCard">
-          <div className="name">Sir Davos</div>
-          <div className="numFaces">{"34"}</div>
-          <div className="quote">{"Onion Knight"}</div>
-        </div>
-        <div className="nameCard">
-          <div className="name">Sansa</div>
-          <div className="numFaces">{"29"}</div>
-          <div className="quote">{"Ldy Wintrfell"}</div>
-        </div>
-        <div className="nameCard">
-          <div className="name">Jason</div>
-          <div className="numFaces">{"29"}</div>
-          <div className="quote">{"Siiiiiiiiiiiiiiiiiiiiiiiiick"}</div>
-        </div>
+        <div className="flex-grid">
+          <div className="col nameHeader">NAME
+          {(this.state.leaders) ? (
+            this.state.leaders.slice(0,5).map((value, index) => {
+              return <p key={index} className="name">{value.name}</p>
+            })
+
+          ) : ("")}
+          </div>
+          <div className="col scoreHeader">SCORE
+          {(this.state.leaders) ? (
+            this.state.leaders.slice(0,5).map((value, index) => {
+              return <p key={index} className="score">{value.score}</p>
+            })
+
+          ) : ("")}
+          </div>
         </div>
       </>
     );
