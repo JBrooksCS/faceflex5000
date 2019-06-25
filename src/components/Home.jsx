@@ -24,11 +24,12 @@ class Home extends Component {
   };
 
   componentDidMount = () => {
+    //Check localStorage for logged in email
+    //Fix this later
     let userName = localStorage.getItem("userEmail")
     if (localStorage.getItem("userEmail")) {
       this.setState({ username: this.parseUserName(userName) })
     }
-    // let logged_in_user = fire.auth().currentUser;
     let localStorageToBool = localStorage.getItem("scoreModal")
     //Converting localStorage info into boolean since Modal was pissed it was a string
     let modalBool = (localStorageToBool == "true")
@@ -79,7 +80,7 @@ class Home extends Component {
     };
     localStorage.setItem("scoreModal", false)
 
-    console.log("EMail Val ", this.refs.signUpEmail.value);
+    //console.log("EMail Val ", this.refs.signUpEmail.value);
     newState.modal = !this.state.modal;
     this.setState(newState);
   };
@@ -94,6 +95,8 @@ class Home extends Component {
   };
 
   render() {
+
+
     return (
       <>
         {(localStorage.getItem("scoreModal") === "true") ?

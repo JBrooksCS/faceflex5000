@@ -6,6 +6,8 @@ import Webcam from "react-webcam";
 import TopBar from "./topBar/TopBar";
 import ALL_IMAGES from "./topBar/ALL_IMAGES"
 import "../styles/style.css";
+import { saveScore} from "../API_Manager/leaderboard";
+
 
 const videoConstraints = {
   width: 200,
@@ -67,10 +69,11 @@ class Game extends Component {
     let now = Math.floor(Date.now() / 1000);
     this.setState({
       startTime: now,
-      endTime: now + 64
+      endTime: now + 15// 64
     });
 
     this.interval = setInterval(async () => {
+      console.log("CURRENT SCORE : ", this.state.score)
       const detections = await faceapi
         .detectAllFaces(
           input,
@@ -122,7 +125,17 @@ class Game extends Component {
     });
     if (this.state.timeRemaining <= 0){
       localStorage.setItem("score", this.state.score)
+      console.log("FINAL SCORE 1: ", this.state.score)
       localStorage.setItem("scoreModal", true)
+      let stored_email = localStorage.getItem("userEmail")
+      if (stored_email && (this.state.score > 0)){
+        console.log("FINAL SCORE 2: ", this.state.score)
+        saveScore({
+          email: stored_email,
+          name: stored_email.substring(0, stored_email.lastIndexOf("@")),
+          score: this.state.score
+        })
+      }
       this.props.history.push("/")
     }
   }

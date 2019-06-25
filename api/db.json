@@ -1,20 +1,25 @@
 {
   "profiles": [
+    {
+      "email": "strangehandle@gmail.com",
+      "photo": null,
+      "userName": "strangehandle",
+      "id": 14
+    }
   ],
-  "leaderboard" : [
-    { "id": 1,
+  "leaderboard": [
+    {
+      "id": 1,
       "name": "Jason",
       "score": 35
     },
     {
-     "id": 2,
-
+      "id": 2,
       "name": "Steve",
       "score": 200
     },
     {
-     "id": 5,
-
+      "id": 5,
       "name": "Josh",
       "score": 2
     },
@@ -22,6 +27,17 @@
       "id": 3,
       "name": "Dan",
       "score": 4
+    },
+    {
+      "id": 4,
+      "name": "Thomas",
+      "score": 40
+    },
+    {
+      "email": "strangehandle@gmail.com",
+      "name": "strangehandle",
+      "score": 6,
+      "id": 6
     }
   ]
 }

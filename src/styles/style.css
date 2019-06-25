@@ -100,6 +100,7 @@ background-color: black; /* Green */
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   margin: 0%;
   color: aqua;
+
 }
 .scoreHeader{
   color: gold;
@@ -108,9 +109,11 @@ background-color: black; /* Green */
 .score{
   font-family: "Bitstream Vera Sans Mono", monospace;
   color: hotpink;
-
   align-self: center;
   margin: auto;
+  
+
+
 }
 
 .home-containers{
@@ -303,6 +306,7 @@ background-color: black; /* Green */
   background-color: rgb(255, 187, 0);
 }
 #signup_button{
+  margin-top: 6em;  
   background-color: rgb(255, 187, 0);
 }
 

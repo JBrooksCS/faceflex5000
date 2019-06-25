@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import * as firebase from "firebase/app";
+import 'firebase/storage'
 import Title from "./Title";
 import video from "./particles.mp4";
 import { Link } from "react-router-dom";
-//import { Header, Form, Grid } from "semantic-ui-react";
 import fire from "../config/Fire";
 import { saveProfile } from "../API_Manager/profiles";
 import {
@@ -15,11 +15,15 @@ import {
   //Fade
 } from "reactstrap";
 import sad from "./topBar/photos/sad_toby.jpeg"
-
 //import "firebase/auth";
 import "../styles/style.css";
+import default_icon from "./topBar/photos/Face_Icon.png"
 
 class Auth extends Component {
+
+  //via instructions from https://firebase.google.com/docs/storage/web/upload-files
+  storageRef = firebase.storage().ref('profile_images');
+
   state = {
     signin_email: "",
     signup_email: "",
@@ -43,26 +47,10 @@ class Auth extends Component {
       signup_username: "",
       signin_password: "",
       signup_password: "",
-      photo: null,
+      photo: default_icon,
       error: []
     }));
   };
-  //     this.setState(prevState => ({
-  //       signin_email: "",
-  //       signup_email: "",
-  //       signin_username: "",
-  //       signup_username: "",
-  //       signin_password: "",
-  //       signup_password: "",
-  //       photo: null,
-  //       modal: !prevState.modal,
-  //       error: []
-  //     }));
-  //   };
-
-  // handleChange = (e) => {
-  //     this.setState({ [e.target.name]: e.target.value });
-  // }
 
   closeModal = () => {
     const newState = {
@@ -115,21 +103,27 @@ class Auth extends Component {
       error: [],
       hideSignIn: true
     }
-    //console.log(newUser);
-    //if (newUser.email && newUser.password) {
     fire
       .auth()
       .createUserWithEmailAndPassword(
         this.state.signup_email,
         this.state.signup_password
-      ).then(()=> {
-      this.setState(newState)
-      alert("Success! Now log in with your new account and prepare to FACEFLEX-5000")
-    })
+      ).then(() => {
+        this.setState(newState)
+        alert("Success! Now log in with your new account and prepare to FACEFLEX-5000")
+        //creating file, making child and giving it a unique name
+      })
+      .then(() => {
+        let userName = this.state.signup_email.substring(0, this.state.signup_email.lastIndexOf("@"));
+        console.log("PARSED USER NAME ", userName)
+        newUser.userName = userName;
+        // We dont want to store the password in our DB - leave that to Firebase
+        delete newUser.password;
+        console.log("newUserOBJ ", newUser)
+        saveProfile(newUser)
+      })
       .catch(error => {
         console.log("ERROR", error);
-        // newState.modal = 
-        // newState.error = 
         newState = {
           modal: !this.state.modal,
           error: error.message,
@@ -137,23 +131,7 @@ class Auth extends Component {
         };
         this.setState(newState);
       })
-    // .then((_next)=>{
-    //     saveProfile(newUser)
-    // })
-
-    //saveProfile(newUser)
   };
-  //   authListener = () => {
-  //     fire.auth().onAuthStateChanged(function(user) {
-  //       if (user) {
-  //         console.log("AUTH LISTENER User is signed in.");
-  //       } else {
-  //         console.log("AUTH LISTENER No user is signed in.");
-  //       }
-  //     });
-  //   };
-
-
 
   render() {
     return (
@@ -163,12 +141,10 @@ class Auth extends Component {
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css"
           />
-
           <Modal
             isOpen={this.state.modal}
             toggle={this.toggle}
             className={this.props.className}
-
           >
             <ModalHeader className="modalHeader" toggle={this.toggle}>S H A M E !</ModalHeader>
             <ModalBody className="modalBody">
@@ -238,7 +214,7 @@ class Auth extends Component {
             </form>
           </div>
 
-          <div className="auth-container-right" style={this.state.hideSignIn ? {display:"none"} : {display:"initial"}} >
+          <div className="auth-container-right" style={this.state.hideSignIn ? { display: "none" } : { display: "initial" }} >
             <h1 id="authHeader2">Sign Up</h1>
             <form onSubmit={this.signup}>
               <div>Email</div>
@@ -266,7 +242,7 @@ class Auth extends Component {
                 value={this.state.signup_password}
                 style={{ fontFamily: "Times New Roman" }}
               />
-              <div>Profile Photo</div>
+              {/* <div>Profile Photo</div>
               <input
                 className="btn btn-sm"
                 control="input"
@@ -274,7 +250,7 @@ class Auth extends Component {
                 label="Photo"
                 onChange={e => this.setState({ photo: e.target.files[0] })}
                 placeholder="Upload photo"
-              />
+              /> */}
               <button
                 className="btn btn-sml btn-block"
                 id="signup_button"
