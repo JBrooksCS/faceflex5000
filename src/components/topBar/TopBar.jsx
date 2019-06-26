@@ -18,24 +18,44 @@ class TopBar extends Component {
     
   }
 
-  checkIfCompleted=(component_position , curr_pos)=>{
-    if (component_position < curr_pos){ return ("initial") }
-    else { return ("hidden") }
-  }
-  checkIfHighlighted=(component_position , curr_pos)=>{
-    if (component_position === curr_pos){ return ("highlighted")}
-    else {return ("notHighlighted")}
-  }
+  
 
   getPictures(index){
     let pic = this.props.round[index].image //ALL_IMAGES[0].image
     //console.log(this.props.round.length)
     return pic
   }
+  getColor = () =>{
+    let expression = this.props.round[this.props.current_position].exp
+    console.log("EXP TO MAKE", expression)
+    let exp_color = ""
+    switch(expression) {
+      case "angry":
+        exp_color = "red"
+        break;
+      case "disgusted":
+        exp_color = "green"
+        break;
+      case "fearful":
+        exp_color = "purple"
+        break;
+      case "happy":
+        exp_color = "lightblue"
+        break;
+      // case "neutral":
+      //   exp_color = ""
+      //   break;
+      case "sad":
+        exp_color = "blue"
+        break;
+      case "surprised":
+        exp_color = "yellow"
+        break;
+      default:
 
-
-
-
+    }
+    return exp_color
+  }
   render() {
       //console.log("TopBar Rendering")
       //console.log("CURR POS ", this.props.current_position)
@@ -47,31 +67,24 @@ class TopBar extends Component {
       // console.log( "ANSER", (((this.props.current_position - 1) + LENGTH ) % LENGTH ) )
       // console.log ("TWO BEFORE ", TWO_BEFORE, "ONE BEFORE" , ONE_BEFORE)
       // console.log ("TWO AFTER ", TWO_AFTER, "ONE AFTER" , ONE_AFTER)
-
-
     return (
         <>
         {(this.props.round.length > 0)?(
       <div className="topBar">
         <div >
           <TopImage pictureSrc={this.getPictures(TWO_BEFORE)} isHighlighted={ false }/>
-          {/* <TopLabel completed={this.checkIfCompleted(TWO_BEFORE, this.props.current_position)} /> */}
           </div>
         <div >
           <TopImage pictureSrc={this.getPictures(ONE_BEFORE)} isHighlighted={ false }/>
-          {/* <TopLabel completed={this.checkIfCompleted(ONE_BEFORE, this.props.current_position)} /> */}
           </div>
-      <div className="highlighted">
+      <div className="highlighted" style={{ background: this.getColor()}} >
           <TopImage pictureSrc={this.getPictures((this.props.current_position % LENGTH))} isHighlighted={ true }/>
-          {/* <TopLabel completed={this.checkIfCompleted(this.props.current_position, this.props.current_position)} /> */}
           </div>
       <div >
           <TopImage pictureSrc={this.getPictures(ONE_AFTER)} isHighlighted={false}/>
-          {/* <TopLabel completed={this.checkIfCompleted(ONE_AFTER, this.props.current_position)} /> */}
           </div>
       <div >
           <TopImage pictureSrc={this.getPictures(TWO_AFTER)} isHighlighted={false}/>
-          {/* <TopLabel completed={this.checkIfCompleted(TWO_AFTER, this.props.current_position)} /> */}
           </div>
       </div>
         ) : (<></>)}
