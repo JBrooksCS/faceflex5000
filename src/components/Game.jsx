@@ -58,16 +58,11 @@ class Game extends Component {
     //Initialize state array with a random array of face objects
     //this.round = this.randomizeArray(ALL_IMAGES)
     this.round = ALL_IMAGES
-
-    console.log("Round Images", this.round[0].exp)
-
-
+    // console.log("Round Images", this.round[0].exp)
     await this.loadModels();
-    //TO DO add these to higher scope so theyre not re-declared every time
     const input = this.refs.webcam.video;
     const canvas = this.refs.canvas;
     //const container_div = this.refs.container;
-    this.setState({ isLoading: false })
 
     const displaySize = { width: 400, height: 400 };
     // let degrees = 90;
@@ -75,14 +70,32 @@ class Game extends Component {
     faceapi.matchDimensions(canvas, displaySize);
     //console.log(canvas)
     // const useTinyModel = true;
-    let now = Math.floor(Date.now() / 1000);
-    this.setState({
-      startTime: now,
-      endTime: now + 15// 64
-    });
+    // let now = Math.floor(Date.now() / 1000);
+    // this.setState({
+    //   startTime: now,
+    //   endTime: now + 60// 64
+    // });
 
     const game_interval = setInterval(async () => {
-      console.log("CURRENT SCORE : ", this.state.score)
+      //The setInterval runs a few times before the canvas actually loads - this is how we know when we've actually
+      //started drawing on the canvas. Probably a better way to optimize this..
+      if (this.state.isLoading) {
+        if (!this.canvasIsBlank()) {
+          console.log("LOADING")
+          let now = Math.floor(Date.now() / 1000);
+          
+          this.setState({
+            isLoading: false,
+            startTime: now,
+            endTime: now + 60// 64,
+          })
+          
+        }
+      }
+      console.log("End - Now:", this.state.endTime - this.state.startTime)
+
+      console.log("CURRENT SCORE : ", this.state.score, "LOADING?", this.state.isLoading)
+      //console.log("Canvas is Blank : ", this.canvasIsBlank())
       const detections = await faceapi
         .detectAllFaces(
           input,
@@ -124,27 +137,34 @@ class Game extends Component {
         if (dominant_expression !== this.state.expression) {
           this.changeWithExpression(dominant_expression);
         }
-        this.updateTimer();
       }
+      if(!this.state.isLoading)
+            {this.updateTimer();}
+
       if (this.state.game_over) {
         localStorage.setItem("score", this.state.score)
         localStorage.setItem("scoreModal", true)
         clearInterval(game_interval)
         this.checkScore()
-
-
       }
-    }, 100); //100);
+    }, 100);
+  }
+  canvasIsBlank = () => {
+    let canvas = this.refs.canvas
+    return !canvas.getContext('2d')
+      .getImageData(0, 0, canvas.width, canvas.height).data
+      .some(channel => channel !== 0);
   }
 
 
   updateTimer = () => {
-    //Check if game clock has run out
+  //  Check if game clock has run out
     if (this.state.timeRemaining <= 0) {
       this.setState({ game_over: true })
     }
-    else {
-      this.setState({ timeRemaining: this.state.endTime - Math.floor(Date.now() / 1000) })
+    else 
+    {
+      this.setState({ timeRemaining: ((this.state.endTime ) - (Math.floor(Date.now() / 1000))) })
     }
   }
 
@@ -304,11 +324,12 @@ class Game extends Component {
   goHome = () => {
     this.props.history.push("/");
   };
-  
+  endGame = () => {
+    this.setState({ game_over: true })
+  }
+
 
   render() {
-    //console.log("rendering");
-    console.log(this.props)
 
     return (
 
@@ -340,7 +361,7 @@ class Game extends Component {
         }
 
         <div>
-          {(this.isLoading) ? (<div>LOADING</div>) :
+          {(this.state.isLoading) ? (<div className="shake-slow shake-constant" style={{ color: "gold", display: "flex", justifyContent: "center", marginTop: "20%" }} >LOADING</div>) :
             (<TopBar current_position={this.state.current_position} round={this.round} round_length={this.round_length} />)
           }
         </div>
@@ -376,7 +397,7 @@ class Game extends Component {
           <button className="restart" onClick={this.restart}>
             Restart
           </button>
-          <button className="goHome" onClick={this.goHome}>
+          <button className="goHome" onClick={this.endGame}>
             Home
           </button>
           <div className="score">Faces Accumulated : {this.state.score}</div>
