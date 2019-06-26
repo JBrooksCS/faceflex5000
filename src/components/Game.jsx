@@ -15,6 +15,7 @@ import {
   Button,
   //Fade
 } from "reactstrap";
+import BlueEye from "./topBar/blue_eye.png"
 
 
 const videoConstraints = {
@@ -62,6 +63,7 @@ class Game extends Component {
     await this.loadModels();
     const input = this.refs.webcam.video;
     const canvas = this.refs.canvas;
+    const img = this.refs.image
     //const container_div = this.refs.container;
 
     const displaySize = { width: 400, height: 400 };
@@ -83,18 +85,15 @@ class Game extends Component {
         if (!this.canvasIsBlank()) {
           console.log("LOADING")
           let now = Math.floor(Date.now() / 1000);
-          
+
           this.setState({
             isLoading: false,
             startTime: now,
             endTime: now + 60// 64,
           })
-          
+
         }
       }
-      console.log("End - Now:", this.state.endTime - this.state.startTime)
-
-      console.log("CURRENT SCORE : ", this.state.score, "LOADING?", this.state.isLoading)
       //console.log("Canvas is Blank : ", this.canvasIsBlank())
       const detections = await faceapi
         .detectAllFaces(
@@ -103,6 +102,12 @@ class Game extends Component {
         )
         .withFaceLandmarks()
         .withFaceExpressions();
+
+
+
+
+
+
       //console.log("FACE TO MAKE - ", this.round[this.state.current_position].exp)
       //frame++;
       const resizedDetections = faceapi.resizeResults(detections, displaySize);
@@ -111,6 +116,17 @@ class Game extends Component {
       // {ctx.clearRect(0, 0, canvas.width, canvas.height);}
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       faceapi.draw.drawFaceLandmarks(canvas, resizedDetections);
+      //void ctx.drawImage(image, dx, dy);
+      // void ctx.drawImage(image, dx, dy, dWidth, dHeight);
+      // void ctx.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
+      // var image_var = new Image()
+      // image_var = BlueEye;
+      // if (resizedDetections[0]) {
+      //   var left_eye = resizedDetections[0].landmarks.getLeftEye()
+      //   console.log(left_eye)
+
+      // }
+
 
       //rotate hue
       // if (frame % 5 === 0) {
@@ -124,6 +140,18 @@ class Game extends Component {
 
       //This checks to make sure we've loaded a detection
       if (detections[0]) {
+        var left_eye = resizedDetections[0].landmarks.getLeftEye()
+        console.log(left_eye)
+        let dest_x = (left_eye[0].x) + 25
+        let dest_y = (left_eye[5].y) - 15
+        let dest_W = (left_eye[0].x - left_eye[3].x) - 10
+        let dest_H = (left_eye[5].y - left_eye[2].y) + 15
+
+        ctx.drawImage(img, dest_x, dest_y, dest_W, dest_H)
+        //ctx.strokeRect(2,1,1,1);
+
+
+
         let obj = detections[0].expressions;
         //Sorts through the detections obj, assigns most likely exp to dominant_expression and expression_confidence
         Object.keys(obj).forEach(function (key, index) {
@@ -138,8 +166,7 @@ class Game extends Component {
           this.changeWithExpression(dominant_expression);
         }
       }
-      if(!this.state.isLoading)
-            {this.updateTimer();}
+      if (!this.state.isLoading) { this.updateTimer(); }
 
       if (this.state.game_over) {
         localStorage.setItem("score", this.state.score)
@@ -158,13 +185,12 @@ class Game extends Component {
 
 
   updateTimer = () => {
-  //  Check if game clock has run out
+    //  Check if game clock has run out
     if (this.state.timeRemaining <= 0) {
       this.setState({ game_over: true })
     }
-    else 
-    {
-      this.setState({ timeRemaining: ((this.state.endTime ) - (Math.floor(Date.now() / 1000))) })
+    else {
+      this.setState({ timeRemaining: ((this.state.endTime) - (Math.floor(Date.now() / 1000))) })
     }
   }
 
@@ -173,7 +199,6 @@ class Game extends Component {
     let stored_email = localStorage.getItem("userEmail")
     //If user is logged in and score is above 0
     if (stored_email && (this.state.score > 0)) {
-      console.log("would save normally here")
       saveScore({
         email: stored_email,
         name: stored_email.substring(0, stored_email.lastIndexOf("@")),
@@ -361,7 +386,7 @@ class Game extends Component {
         }
 
         <div>
-          {(this.state.isLoading) ? (<div className="shake-slow shake-constant" style={{ color: "gold", display: "flex", justifyContent: "center", marginTop: "20%" }} >LOADING</div>) :
+          {(this.state.isLoading) ? (<div className="shake-slow shake-constant" style={{ color: "gold", display: "flex", justifyContent: "center", marginTop: "20%", fontSize:"4em" }} >LOADING</div>) :
             (<TopBar current_position={this.state.current_position} round={this.round} round_length={this.round_length} />)
           }
         </div>
@@ -403,6 +428,7 @@ class Game extends Component {
           <div className="score">Faces Accumulated : {this.state.score}</div>
           <div className="timer"> {this.state.timeRemaining}</div>
         </div>
+        <img ref="image" src={BlueEye} className="hidden" style={{ display: "none" }} />
       </>
     );
   }

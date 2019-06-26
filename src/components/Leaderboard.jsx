@@ -11,26 +11,13 @@ class Leaderboard extends Component {
 
   componentDidMount() {
     getLeaderboard().then(r => {
-
-      console.log("SCORES", r)
-
       let sorted = r.sort((a, b) => b.score - a.score)
-
       this.setState({ leaders: sorted })
-
-      
-      // console.log("LEADERS", this.state.leaders)
-      console.log("Sorted", sorted)
-
-
-
     })
 
   }
 
   render() {
-
-
     return (
       <>
         <div className="flex-grid">
