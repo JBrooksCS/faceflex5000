@@ -6,7 +6,7 @@ import React, { Component } from "react";
 // import angry from "./photos/angry_cage.jpg";
 // import fearful from "./photos/osmond_scared.jpeg";
 import TopImage from "../TopImage"
-import TopLabel from "./TopLabel";
+// import TopLabel from "./TopLabel";
 import "../../styles/shake.css"
 
 //import ALL_IMAGES from "./ALL_IMAGES"
@@ -45,8 +45,8 @@ class TopBar extends Component {
       let ONE_AFTER = ((1 + this.props.current_position) % LENGTH)
       let TWO_AFTER = ((2 + this.props.current_position) % LENGTH)
       // console.log( "ANSER", (((this.props.current_position - 1) + LENGTH ) % LENGTH ) )
-      console.log ("TWO BEFORE ", TWO_BEFORE, "ONE BEFORE" , ONE_BEFORE)
-      console.log ("TWO AFTER ", TWO_AFTER, "ONE AFTER" , ONE_AFTER)
+      // console.log ("TWO BEFORE ", TWO_BEFORE, "ONE BEFORE" , ONE_BEFORE)
+      // console.log ("TWO AFTER ", TWO_AFTER, "ONE AFTER" , ONE_AFTER)
 
 
     return (
@@ -84,34 +84,4 @@ class TopBar extends Component {
 
 export default TopBar;
 
-{/* /* <div className="topBar" >
-          <div className={this.checkIfHighlighted(0, this.props.current_position)}>
-          <TopImage expression={happy} isHighlighted={ (this.props.current_position===0) ? true : false }/>
-          <TopLabel completed={this.checkIfCompleted(0, this.props.current_position)} />
-          </div>
 
-          <div className={this.checkIfHighlighted(1, this.props.current_position)}>
-          <TopImage expression={sad} isHighlighted={ (this.props.current_position===1) ? true : false }/>
-          <TopLabel completed={this.checkIfCompleted(1, this.props.current_position)} />
-          </div>
-
-          <div className={this.checkIfHighlighted(2, this.props.current_position)}>
-          <TopImage expression={surprised} isHighlighted={ (this.props.current_position===2) ? true : false }/>
-          <TopLabel completed={this.checkIfCompleted(2, this.props.current_position)} />
-          </div>
-
-          <div className={this.checkIfHighlighted(3, this.props.current_position)}>
-          <TopImage expression={angry} isHighlighted={ (this.props.current_position===3) ? true : false }/>
-          <TopLabel completed={this.checkIfCompleted(3, this.props.current_position)} />
-          </div>
-
-          <div className={this.checkIfHighlighted(4, this.props.current_position)}>
-          <TopImage expression={disgust} isHighlighted={ (this.props.current_position===4) ? true : false }/>
-          <TopLabel completed={this.checkIfCompleted(4, this.props.current_position)} />
-          </div>
-
-          <div className={this.checkIfHighlighted(5, this.props.current_position)}>
-          <TopImage expression={fearful} isHighlighted={ (this.props.current_position===5) ? true : false }/>
-          <TopLabel completed={this.checkIfCompleted(5, this.props.current_position)} />
-          </div>
-      </div> */ }
