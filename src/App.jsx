@@ -4,7 +4,9 @@ import Home from "./components/Home"
 import FaceUpload from "./components/FaceUpload"
 import Auth from "./components/Auth"
 //import { withRouter, Route } from 'react-router'
-import { Route, Redirect } from 'react-router-dom'
+import { Route } from 'react-router-dom'
+import video from "./components/particles.mp4";
+
 
 class App extends Component {
 
@@ -16,14 +18,19 @@ class App extends Component {
     // this.setState({
     // })
   }
+  
 
 
   render() {
     return (
       <>
+      {/* <video autoPlay={true} muted={true} loop={true} id="myVideo">
+          <source src={video} type="video/mp4" />
+        </video> */}
+
       <Route exact path="/" component={Home} />
 
-      <Route exact path="/game" component={Game}/>
+      <Route exact path="/game" component={Game} scoreUpdate={this.scoreUpdate}/>
 
       <Route exact path="/faceupload" component={FaceUpload}/>
 

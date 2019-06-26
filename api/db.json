@@ -5,39 +5,38 @@
       "photo": null,
       "userName": "strangehandle",
       "id": 14
+    },
+    {
+      "email": "Arya@mail.com",
+      "photo": null,
+      "userName": "Arya",
+      "id": 15
+    },
+    {
+      "email": "AryaStark@gmail.com",
+      "photo": null,
+      "userName": "AryaStark",
+      "id": 16
     }
   ],
   "leaderboard": [
-    {
-      "id": 1,
-      "name": "Jason",
-      "score": 35
-    },
-    {
-      "id": 2,
-      "name": "Steve",
-      "score": 200
-    },
-    {
-      "id": 5,
-      "name": "Josh",
-      "score": 2
-    },
-    {
-      "id": 3,
-      "name": "Dan",
-      "score": 4
-    },
-    {
-      "id": 4,
-      "name": "Thomas",
-      "score": 40
-    },
     {
       "email": "strangehandle@gmail.com",
       "name": "strangehandle",
       "score": 6,
       "id": 6
+    },
+    {
+      "email": "strangehandle@gmail.com",
+      "name": "strangehandle",
+      "score": 8,
+      "id": 7
+    },
+    {
+      "email": "aryastark@gmail.com",
+      "name": "aryastark",
+      "score": 8,
+      "id": 8
     }
   ]
 }

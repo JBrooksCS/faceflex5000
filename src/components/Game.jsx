@@ -6,7 +6,15 @@ import Webcam from "react-webcam";
 import TopBar from "./topBar/TopBar";
 import ALL_IMAGES from "./topBar/ALL_IMAGES"
 import "../styles/style.css";
-import { saveScore} from "../API_Manager/leaderboard";
+import { saveScore } from "../API_Manager/leaderboard";
+import {
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Button,
+  //Fade
+} from "reactstrap";
 
 
 const videoConstraints = {
@@ -17,14 +25,15 @@ const videoConstraints = {
 
 class Game extends Component {
   state = {
-    isLoading : true,
+    isLoading: true,
     expression: "",
     color: "black",
     current_position: 0,
     score: 0,
     startTime: 0,
     endTime: 0,
-    timeRemaining: 60
+    timeRemaining: 60,
+    game_over: false
   };
 
   //TEST_COLOR = "red";
@@ -42,7 +51,7 @@ class Game extends Component {
   round_length = ALL_IMAGES.length;
 
   async componentDidMount() {
-    
+
     document.body.style.backgroundColor = "black";
     console.log("component did mount");
     // console.log("OG Images", ALL_IMAGES)
@@ -58,7 +67,7 @@ class Game extends Component {
     const input = this.refs.webcam.video;
     const canvas = this.refs.canvas;
     //const container_div = this.refs.container;
-    this.setState({isLoading:false})
+    this.setState({ isLoading: false })
 
     const displaySize = { width: 400, height: 400 };
     // let degrees = 90;
@@ -72,7 +81,7 @@ class Game extends Component {
       endTime: now + 15// 64
     });
 
-    this.interval = setInterval(async () => {
+    const game_interval = setInterval(async () => {
       console.log("CURRENT SCORE : ", this.state.score)
       const detections = await faceapi
         .detectAllFaces(
@@ -104,7 +113,7 @@ class Game extends Component {
       if (detections[0]) {
         let obj = detections[0].expressions;
         //Sorts through the detections obj, assigns most likely exp to dominant_expression and expression_confidence
-        Object.keys(obj).forEach(function(key, index) {
+        Object.keys(obj).forEach(function (key, index) {
           // key: the name of the object key, index: the ordinal position of the key within the object
           if (obj[key] > expression_confidence) {
             //Then this exp is the new top exp
@@ -117,35 +126,41 @@ class Game extends Component {
         }
         this.updateTimer();
       }
+      if (this.state.game_over) {
+        localStorage.setItem("score", this.state.score)
+        localStorage.setItem("scoreModal", true)
+        clearInterval(game_interval)
+        this.checkScore()
+
+
+      }
     }, 100); //100);
   }
-  updateTimer() {
-    this.setState({
-      timeRemaining: this.state.endTime - Math.floor(Date.now() / 1000)
-    });
-    if (this.state.timeRemaining <= 0){
-      localStorage.setItem("score", this.state.score)
-      console.log("FINAL SCORE 1: ", this.state.score)
-      localStorage.setItem("scoreModal", true)
-      let stored_email = localStorage.getItem("userEmail")
-      if (stored_email && (this.state.score > 0)){
-        console.log("FINAL SCORE 2: ", this.state.score)
-        saveScore({
-          email: stored_email,
-          name: stored_email.substring(0, stored_email.lastIndexOf("@")),
-          score: this.state.score
-        })
-      }
-      this.props.history.push("/")
+
+
+  updateTimer = () => {
+    //Check if game clock has run out
+    if (this.state.timeRemaining <= 0) {
+      this.setState({ game_over: true })
+    }
+    else {
+      this.setState({ timeRemaining: this.state.endTime - Math.floor(Date.now() / 1000) })
     }
   }
 
-  componentWillUnmount() {
-   
-    clearInterval(this.interval);
-  }
 
-  //this.refs.container.style.backgroundColor = this.state.bg_color;
+  checkScore = () => {
+    let stored_email = localStorage.getItem("userEmail")
+    //If user is logged in and score is above 0
+    if (stored_email && (this.state.score > 0)) {
+      console.log("would save normally here")
+      saveScore({
+        email: stored_email,
+        name: stored_email.substring(0, stored_email.lastIndexOf("@")),
+        score: this.state.score
+      })
+    }
+  }
   changeWithExpression = dom_exp => {
     //console.log("FROM ", this.state.expression, "TO", dom_exp);
 
@@ -266,17 +281,13 @@ class Game extends Component {
   }
 
   randomizeArray = (arrayToRandomize) => {
-    console.log("Made it TO randomize")
     let arr_1 = arrayToRandomize
     let arr_2 = []
-
-    while(arr_1.length !== 0){
+    while (arr_1.length !== 0) {
       let randomIndex = Math.floor(Math.random() * arr_1.length)
       arr_2.push(arr_1[randomIndex])
       arr_1.splice(randomIndex, 1)
     }
-    console.log("Made it OUT randomize")
-
     return (arr_2)
   }
 
@@ -293,20 +304,47 @@ class Game extends Component {
   goHome = () => {
     this.props.history.push("/");
   };
+  
 
   render() {
     //console.log("rendering");
+    console.log(this.props)
+
     return (
-      // <script defer src="face-api.min.js" />
+
 
 
       <>
+        {(this.state.game_over) ?
+          <div>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" />
+            <Modal
+              isOpen={this.state.game_over}
+              toggle={this.goHome}
+              className={this.props.className}
+            >
+              <ModalHeader className="modalHeader"> Game over! </ModalHeader>
+              <ModalBody className="modalBody">
+                Congratulations! You earned {this.state.score} faces!
+              {(localStorage.getItem("userEmail")) ? ("") : (" Sign In / Sign Up to add your score to the Hall of Fame!")}
+
+              </ModalBody>
+              <ModalFooter className="modalFooter">
+                <Button id="modalButton" onClick={this.goHome}>
+                  Got it!
+              </Button>
+              </ModalFooter>
+            </Modal>
+          </div>
+          : <></>
+        }
+
         <div>
           {(this.isLoading) ? (<div>LOADING</div>) :
-        (<TopBar current_position={this.state.current_position} round={this.round} round_length={this.round_length}/>)
+            (<TopBar current_position={this.state.current_position} round={this.round} round_length={this.round_length} />)
           }
         </div>
-        
+
         <div
           ref="container"
           className="container"

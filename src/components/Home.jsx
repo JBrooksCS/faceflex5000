@@ -99,7 +99,7 @@ class Home extends Component {
 
     return (
       <>
-        {(localStorage.getItem("scoreModal") === "true") ?
+        {/* {(localStorage.getItem("scoreModal") === "true") ?
           <div>
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" />
             <Modal
@@ -121,7 +121,7 @@ class Home extends Component {
             </Modal>
           </div>
           : <></>
-        }
+        } */}
 
 
         <video autoPlay={true} muted={true} loop={true} id="myVideo">

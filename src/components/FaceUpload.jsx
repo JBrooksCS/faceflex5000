@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import * as faceapi from "face-api.js";
+// import * as faceapi from "face-api.js";
 import Webcam from "react-webcam";
 import "../styles/style.css";
 import video from "./particles.mp4";
