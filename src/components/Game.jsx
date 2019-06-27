@@ -66,7 +66,7 @@ class Game extends Component {
     // const img = this.refs.image
     //const container_div = this.refs.container;
 
-    const displaySize = { width: 400, height: 400 };
+    const displaySize = { width: 500, height: 500 };
     // let degrees = 90;
     // let frame = 0;
     faceapi.matchDimensions(canvas, displaySize);
@@ -79,8 +79,8 @@ class Game extends Component {
     // });
 
     const game_interval = setInterval(async () => {
-      //The setInterval runs a few times before the canvas actually loads - this is how we know when we've actually
-      //started drawing on the canvas. Probably a better way to optimize this..
+      //The setInterval runs a few times before the canvas actually loads - this logic below is how we know when we've actually
+      //started drawing on the canvas. Probably a better way to optimize this..?
       if (this.state.isLoading) {
         if (!this.canvasIsBlank()) {
           console.log("LOADING")
@@ -102,22 +102,14 @@ class Game extends Component {
         )
         .withFaceLandmarks()
         .withFaceExpressions();
-
-
-
-
-
-
       //console.log("FACE TO MAKE - ", this.round[this.state.current_position].exp)
       //frame++;
       const resizedDetections = faceapi.resizeResults(detections, displaySize);
       let ctx = canvas.getContext("2d");
-      // if (this.state.expression === "neutral")
-      // {ctx.clearRect(0, 0, canvas.width, canvas.height);}
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      if (this.state.expression === "neutral")
+      {ctx.clearRect(0, 0, canvas.width, canvas.height);}
+      //ctx.clearRect(0, 0, canvas.width, canvas.height);
       //faceapi.draw.drawFaceLandmarks(canvas, resizedDetections);
-
-
       //rotate hue
       // if (frame % 5 === 0) {
       //   degrees = (degrees + 15) % 360;
@@ -189,8 +181,9 @@ class Game extends Component {
     ctx.lineTo(eye[4].x, eye[4].y)
     ctx.lineTo(eye[5].x, eye[5].y)
     ctx.lineTo(eye[0].x, eye[0].y)
+    let color = this.getFaceColor()
     ctx.lineWidth = 5;
-    ctx.strokeStyle = "red"
+    ctx.strokeStyle = color
     ctx.stroke()
     ctx.fillStyle = "blue"
     ctx.fill();
@@ -206,8 +199,9 @@ class Game extends Component {
     ctx.lineTo(nose[6].x, nose[6].y)
     ctx.lineTo(nose[7].x, nose[7].y)
     ctx.lineTo(nose[8].x, nose[8].y)
+    let color = this.getFaceColor()
     ctx.lineWidth = 2;
-    ctx.strokeStyle = "red"
+    ctx.strokeStyle = color
     ctx.stroke()
     // ctx.fillStyle = "blue"
     // ctx.fill();
@@ -219,8 +213,9 @@ class Game extends Component {
     ctx.lineTo(brow[2].x, brow[2].y)
     ctx.lineTo(brow[3].x, brow[3].y)
     ctx.lineTo(brow[4].x, brow[4].y)
+    let color = this.getFaceColor()
     ctx.lineWidth = 5;
-    ctx.strokeStyle = "red"
+    ctx.strokeStyle = color
     ctx.stroke()
   }
   drawMouth = (ctx, mouth) => {
@@ -246,8 +241,9 @@ class Game extends Component {
     ctx.lineTo(mouth[18].x, mouth[18].y)
     ctx.lineTo(mouth[19].x, mouth[19].y)
     ctx.lineTo(mouth[0].x, mouth[0].y)
+    let color = this.getFaceColor()
     ctx.lineWidth = 5;
-    ctx.strokeStyle = "red"
+    ctx.strokeStyle = color
     ctx.stroke()
   }
   drawJaw = (ctx, jaw) => {
@@ -269,9 +265,40 @@ class Game extends Component {
     ctx.lineTo(jaw[14].x, jaw[14].y)
     ctx.lineTo(jaw[15].x, jaw[15].y)
     ctx.lineTo(jaw[16].x, jaw[16].y)
+    let color = this.getFaceColor()
     ctx.lineWidth = 5;
-    ctx.strokeStyle = "red"
+    ctx.strokeStyle = color
     ctx.stroke()
+  }
+  getFaceColor = () =>{
+    let faceColor = ""
+    switch(this.state.expression) {
+      case "angry":
+        faceColor = "#00ffdd"
+        break;
+      case "disgusted":
+        faceColor = "#ff2802"
+        break;
+      case "fearful":
+        faceColor = "#ffab0f"
+        break;
+      case "happy":
+        faceColor = "#ff6459"
+        break;
+      // case "neutral":
+      //   faceColor = ""
+      //   break;
+      case "sad":
+        faceColor = "#ffc403"
+        break;
+      case "surprised":
+        faceColor = "#ff00bb"
+        break;
+      default:
+
+    }
+    return faceColor
+
   }
   
 
@@ -286,7 +313,7 @@ class Game extends Component {
       })
     }
   }
-  changeWithExpression = dom_exp => {
+  changeWithExpression = (dom_exp) => {
     //console.log("FROM ", this.state.expression, "TO", dom_exp);
 
     switch (dom_exp) {
