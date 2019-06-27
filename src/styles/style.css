@@ -22,6 +22,10 @@
   font-family: "Saira";
   src: url("Saira.ttf")
 }
+@font-face{
+  font-family: "Potra";
+  src: url("Potra.ttf")
+}
 
 html,
 body {
@@ -29,15 +33,30 @@ body {
   margin: 0;
   padding-bottom: 30px;
   position: relative;
+  background: black;
+  z-index: -3;
+
 
 }
+video{
+  margin: 0;
+  padding: 0;
+}
+.videoContainer{
+
+
+}
+
 #myVideo {
-  position: fixed;
+  position: absolute;
+  width: 100%;
   right: 0;
   bottom: 0;
   min-width: 100%;
   min-height: 100%;
-  z-index: -1;
+  top: 50%; left: 50%;
+  z-index: -2;
+  transform: translate(-50%, -50%);
 }
 
 .row.footer {
@@ -103,6 +122,7 @@ background-color: black; /* Green */
 }
 .nameHeader{
   color: gold;
+  opacity: .8;
 }
 .name {
   font-family: "Saira";
@@ -112,6 +132,8 @@ background-color: black; /* Green */
 }
 .scoreHeader{
   color: gold;
+  opacity: .8;
+
 }
 .score{
   font-family: "Bitstream Vera Sans Mono", monospace;
@@ -124,47 +146,42 @@ background-color: black; /* Green */
 .col{
   margin-bottom: .5em;
 }
+.home-title{
+  padding: 0;
+}
 
 .home-containers{
-
   display: flex;
   justify-content: space-evenly;
   padding-bottom: .3em;
-  
 }
 .home-container-left{
-  background-color: rgb(255, 23, 93);
+  width: 40%;
   border-radius: .2em;
-  font-size: 2.5em;
+  font-size: 1.3em;
   display: flex;
   flex-direction: column;
-  align-content: space-between;
-  box-shadow: 3px 5px blue;
+  align-content: space-evenly;
+
   opacity: .8;
   padding-top: .8em;
-  width: 40%;
-
-
 }
-.home-container-left:hover{
-  opacity: .9;
-}
-.home-container-right:hover{
-  opacity: 1;
+.home-container-center{
+  width: 20%;
+  align-content: center;
+
 }
 .home-container-right{
   font-family: "Reavers";
-  width: 30%;
-  padding: 0em .8em;
+  width: 40%;
+
   font-size: 2em;
   display: flex;
   flex-direction: column;
   align-content: space-between;
   color: rgb(171, 204, 233);
-  background-color: #008CBA;
   border-radius: .2em;
-  text-shadow: 3px 1.5px blue;
-  box-shadow: 3px 5px blue;
+
   opacity: .93;
 }
 .auth-containers{
@@ -194,15 +211,19 @@ background-color: black; /* Green */
   padding-top: 1em;
 }
 .home-link{
-  margin: 5%;
+  display: flex;
+  padding-top: 2.2em;
+  height: 3em;
+  justify-content: center;
 }
 .nav-link{
+
   font-family: "Argani";
-  font-size: .6em;
-  margin: 30 0 3px 0;
+  font-size: .8em;
+
   color:  rgb(209, 206, 51);
-  padding: .3em;
-  text-shadow: 5px 3px rgb(25, 82, 204);
+
+
 }
 .nav-link:clicked{
 
@@ -213,7 +234,7 @@ background-color: black; /* Green */
 }
 
 .timer {
-  font-family: "Fresnel";
+  font-family: "Reavers";
   color: cornflowerblue;
   font-size: 4em;
 }
@@ -224,7 +245,7 @@ background-color: black; /* Green */
 
   text-transform: uppercase;
   display: inline-block;
-  font-size: 6em;
+  font-size: 4.5em;
 
   background: repeating-linear-gradient(90deg, aqua 0%, hotpink 50%, aqua 100%);
   background-size: 200% auto;
@@ -235,7 +256,7 @@ background-color: black; /* Green */
   animation-fill-mode: forwards;
   animation-timing-function: radial;
 
-  width: 100%;
+  width: auto;
   display: flex;
   justify-content: center;
   margin: .5em 0em 0em 0em;
@@ -248,8 +269,6 @@ background-color: black; /* Green */
   justify-content: center;
   color: hotpink;
   filter: drop-shadow(6px 5px 1px #4444dd);
-
-
 }
 
 
@@ -258,6 +277,8 @@ background-color: black; /* Green */
     100% { background-position: -200% 0; }
 }
 .hallOfFame{
+  font-family: "Potra";
+  font-size: 1em;
   display: flex;
   justify-content: center;
   padding-bottom: .1em;
@@ -273,7 +294,6 @@ background-color: black; /* Green */
 }
 .makeAFace{
   font-family: "Reavers";
-
 }
 .signOutDiv{
   display: flex;
@@ -281,12 +301,11 @@ background-color: black; /* Green */
   width: 100%;
 }
 .signOut{
-  background-color: aqua;
+background: transparent;
   margin: .8em;
-  color: blue;
+  color: aliceblue;
   opacity: .6;
-  padding: 1em;
-  border-radius: .1em;
+  padding: .4em;
   font-family: "LED";
 }
 .signOut:hover{
@@ -327,9 +346,10 @@ background-color: black; /* Green */
 
 .flex-grid {
   display: flex;
+  justify-content: space-evenly;
 }
 .col {
-  flex: 1;
+
 }
 
 

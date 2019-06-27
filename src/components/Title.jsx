@@ -6,7 +6,7 @@ class Title extends Component {
     return (
       <>
         <div className="text-gradient">
-          <div className="title-text">
+
             <span className="letters">F</span>
             <span className="letters">a</span>
             <span className="letters">c</span>
@@ -20,7 +20,7 @@ class Title extends Component {
             <span className="letters">0</span>
             <span className="letters">0</span>
             <span className="letters">0</span>
-          </div>
+
         </div>
       </>
     );

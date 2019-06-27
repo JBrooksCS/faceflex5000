@@ -5,6 +5,7 @@ import "../styles/shake.css"
 import Leaderboard from "./Leaderboard";
 import Title from "./Title";
 import video from "./particles.mp4";
+import video2 from "./FACEFLEX_BG.mp4";
 import fire from "../config/Fire";
 import {
   Modal,
@@ -123,42 +124,46 @@ class Home extends Component {
           : <></>
         } */}
 
-
+        <div className="videoContainer" >
         <video autoPlay={true} muted={true} loop={true} id="myVideo">
-          <source src={video} type="video/mp4" />
+          <source src={video2} type="video/mp4" />
         </video>
+        </div>
 
         <div className="home-title" style={{ padding: "1em 0 3em 0" }}>
           <Title />
         </div>
         <div className="home-containers">
           <div className="home-container-left">
-            <div className="home-link">
-              <Link className="nav-link shake-slow shake-constant shake-constant--hover" to="/game">
+          <div className="home-link">
+              <Link className="nav-link" to="/game" style={{ textDecoration: 'none' }}>
                 PLAY THE GAME
               </Link>
             </div>
             { //Don't render login / signup if user is already logged in
               (this.state.user === null) ?
                 (<div className="home-link">
-                  <Link className="nav-link" to="/auth">
+                  <Link className="nav-link" to="/auth" style={{ textDecoration: 'none' }}>
                     SIGN IN / UP
               </Link>
                 </div>)
                 :
                 (
                   <div className="home-link">
-                    <Link className="nav-link" to="/">Profile Info</Link>
+                    <Link className="nav-link" to="/" style={{ textDecoration: 'none' }}>Profile Info</Link>
                   </div>
                 )
 
             }
 
             <div className="home-link">
-              <Link className="nav-link" to="/faceupload">
+              <Link className="nav-link" to="/faceupload" style={{ textDecoration: 'none' }}>
                 CONTRIBUTE YOUR FACE
               </Link>
             </div>
+          </div>
+          <div className="home-container-center">
+          
           </div>
           <div className="home-container-right">
             <h3 className="hallOfFame">HALL OF FAME</h3>
