@@ -15,7 +15,7 @@ import {
   Button,
   //Fade
 } from "reactstrap";
-import Eye from "./topBar/eye_256.png"
+
 
 
 const videoConstraints = {
@@ -535,7 +535,7 @@ class Game extends Component {
           <div className="score">Faces Accumulated : {this.state.score}</div>
           <div className="timer"> {this.state.timeRemaining}</div>
         </div>
-        <img ref="image" src={Eye} className="hidden" style={{ display: "none" }} />
+
       </>
     );
   }

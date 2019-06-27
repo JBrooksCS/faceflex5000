@@ -2,7 +2,9 @@ import React, { Component } from "react";
 // import * as faceapi from "face-api.js";
 import Webcam from "react-webcam";
 import "../styles/style.css";
-import video from "./particles.mp4";
+
+import video2 from "./FACEFLEX_BG.mp4";
+
 
 
 class FaceUpload extends Component {
@@ -29,7 +31,7 @@ class FaceUpload extends Component {
     return (
       <>
       <video autoPlay={true} muted={true} loop={true} id="myVideo">
-            <source src={video} type="video/mp4" />
+            <source src={video2} type="video/mp4" />
         </video>
         <div
           style={{
