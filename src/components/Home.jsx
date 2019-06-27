@@ -4,7 +4,6 @@ import "../styles/style.css";
 import "../styles/shake.css"
 import Leaderboard from "./Leaderboard";
 import Title from "./Title";
-import video from "./particles.mp4";
 import video2 from "./FACEFLEX_BG.mp4";
 import fire from "../config/Fire";
 import {
@@ -100,43 +99,18 @@ class Home extends Component {
 
     return (
       <>
-        {/* {(localStorage.getItem("scoreModal") === "true") ?
-          <div>
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" />
-            <Modal
-              isOpen={this.state.modal}
-              toggle={this.toggle}
-              className={this.props.className}
-            >
-              <ModalHeader className="modalHeader" toggle={this.toggle}>Game over!</ModalHeader>
-              <ModalBody className="modalBody">
-                Congratulations! You earned {localStorage.getItem("score")} faces!
-              {(this.state.user) ? ("") : (" Sign In / Sign Up to add your score to the Hall of Fame!")}
-
-              </ModalBody>
-              <ModalFooter className="modalFooter">
-                <Button id="modalButton" onClick={this.toggle}>
-                  Got it!
-              </Button>
-              </ModalFooter>
-            </Modal>
-          </div>
-          : <></>
-        } */}
-
         <div className="videoContainer" >
         <video autoPlay={true} muted={true} loop={true} id="myVideo">
           <source src={video2} type="video/mp4" />
         </video>
         </div>
-
         <div className="home-title" style={{ padding: "1em 0 3em 0" }}>
           <Title />
         </div>
         <div className="home-containers">
           <div className="home-container-left">
           <div className="home-link">
-              <Link className="nav-link" to="/game" style={{ textDecoration: 'none' }}>
+              <Link className="nav-link shake-slow shake-constant shake-constant--hover" to="/game" style={{ textDecoration: 'none' }}>
                 PLAY THE GAME
               </Link>
             </div>

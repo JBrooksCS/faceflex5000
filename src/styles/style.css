@@ -41,6 +41,7 @@ body {
 video{
   margin: 0;
   padding: 0;
+  background: black;
 }
 .videoContainer{
 
@@ -186,13 +187,9 @@ background-color: black; /* Green */
 }
 .auth-containers{
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-around;
 }
 
-.auth-container-right:hover{
-  opacity: 1;
-
-}
 .auth-container-right{
   font-family: "Reavers";
   width: 30%;
@@ -202,11 +199,11 @@ background-color: black; /* Green */
   flex-direction: column;
   align-content: space-between;
   color: rgb(171, 204, 233);
-  background-color: #008CBA;
+  background-color: transparent;
   border-radius: .2em;
   text-shadow: 3px 1.5px blue;
-  box-shadow: 3px 5px blue;
-  opacity: .93;
+
+
   padding-bottom: 2em;
   padding-top: 1em;
 }
@@ -264,11 +261,11 @@ background-color: black; /* Green */
   font-weight: bold;
 }
 #authHeader1, #authHeader2{
-  width: 100%;
+  width: 90%;
   display: flex;
   justify-content: center;
-  color: hotpink;
-  filter: drop-shadow(6px 5px 1px #4444dd);
+  color: rgb(241, 104, 104);
+  filter: drop-shadow(1px 1px 1px #4444dd);
 }
 
 
@@ -337,11 +334,13 @@ background: transparent;
 }
 #signin_button{
   margin-top: 6em;
-  background-color: rgb(255, 187, 0);
+  background-color: rgb(112, 74, 248);
 }
 #signup_button{
   margin-top: 6em;  
-  background-color: rgb(255, 187, 0);
+  background-color: rgb(112, 74, 248);
+
+
 }
 
 .flex-grid {
