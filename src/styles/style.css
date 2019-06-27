@@ -14,6 +14,14 @@
   font-family: "LED";
   src:url("LED.ttf")
 }
+@font-face{
+  font-family: "Argani";
+  src: url("Argani.otf")
+}
+@font-face{
+  font-family: "Saira";
+  src: url("Saira.ttf")
+}
 
 html,
 body {
@@ -97,30 +105,32 @@ background-color: black; /* Green */
   color: gold;
 }
 .name {
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-family: "Saira";
   margin: 0%;
   color: aqua;
-
+  font-size: 70%;
 }
 .scoreHeader{
   color: gold;
-
 }
 .score{
   font-family: "Bitstream Vera Sans Mono", monospace;
   color: hotpink;
   align-self: center;
   margin: auto;
-  
-
-
+  font-size: 95%;
+  padding-left: 1.5em;
+}
+.col{
+  margin-bottom: .5em;
 }
 
 .home-containers{
 
   display: flex;
   justify-content: space-evenly;
-
+  padding-bottom: .3em;
+  
 }
 .home-container-left{
   background-color: rgb(255, 23, 93);
@@ -131,6 +141,10 @@ background-color: black; /* Green */
   align-content: space-between;
   box-shadow: 3px 5px blue;
   opacity: .8;
+  padding-top: .8em;
+  width: 40%;
+
+
 }
 .home-container-left:hover{
   opacity: .9;
@@ -183,7 +197,8 @@ background-color: black; /* Green */
   margin: 5%;
 }
 .nav-link{
-  font-family: "Alectro";
+  font-family: "Argani";
+  font-size: .6em;
   margin: 30 0 3px 0;
   color:  rgb(209, 206, 51);
   padding: .3em;
@@ -245,7 +260,7 @@ background-color: black; /* Green */
 .hallOfFame{
   display: flex;
   justify-content: center;
-  padding-bottom: .3em;
+  padding-bottom: .1em;
 
 }
 

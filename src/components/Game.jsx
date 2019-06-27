@@ -15,6 +15,7 @@ import {
   Button,
   //Fade
 } from "reactstrap";
+import Eye from "./topBar/eye_256.png"
 
 
 const videoConstraints = {
@@ -62,6 +63,7 @@ class Game extends Component {
     await this.loadModels();
     const input = this.refs.webcam.video;
     const canvas = this.refs.canvas;
+    // const img = this.refs.image
     //const container_div = this.refs.container;
 
     const displaySize = { width: 400, height: 400 };
@@ -83,18 +85,15 @@ class Game extends Component {
         if (!this.canvasIsBlank()) {
           console.log("LOADING")
           let now = Math.floor(Date.now() / 1000);
-          
+
           this.setState({
             isLoading: false,
             startTime: now,
             endTime: now + 60// 64,
           })
-          
+
         }
       }
-      console.log("End - Now:", this.state.endTime - this.state.startTime)
-
-      console.log("CURRENT SCORE : ", this.state.score, "LOADING?", this.state.isLoading)
       //console.log("Canvas is Blank : ", this.canvasIsBlank())
       const detections = await faceapi
         .detectAllFaces(
@@ -103,6 +102,12 @@ class Game extends Component {
         )
         .withFaceLandmarks()
         .withFaceExpressions();
+
+
+
+
+
+
       //console.log("FACE TO MAKE - ", this.round[this.state.current_position].exp)
       //frame++;
       const resizedDetections = faceapi.resizeResults(detections, displaySize);
@@ -110,7 +115,8 @@ class Game extends Component {
       // if (this.state.expression === "neutral")
       // {ctx.clearRect(0, 0, canvas.width, canvas.height);}
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      faceapi.draw.drawFaceLandmarks(canvas, resizedDetections);
+      //faceapi.draw.drawFaceLandmarks(canvas, resizedDetections);
+
 
       //rotate hue
       // if (frame % 5 === 0) {
@@ -124,6 +130,17 @@ class Game extends Component {
 
       //This checks to make sure we've loaded a detection
       if (detections[0]) {
+        this.drawEye(ctx, resizedDetections[0].landmarks.getLeftEye())
+        this.drawEye(ctx, resizedDetections[0].landmarks.getRightEye())
+        this.drawNose(ctx, resizedDetections[0].landmarks.getNose())
+        this.drawBrow(ctx, resizedDetections[0].landmarks.getLeftEyeBrow())
+        this.drawBrow(ctx, resizedDetections[0].landmarks.getRightEyeBrow())
+        this.drawMouth(ctx, resizedDetections[0].landmarks.getMouth())
+        this.drawJaw(ctx, resizedDetections[0].landmarks.getJawOutline())
+
+
+
+
         let obj = detections[0].expressions;
         //Sorts through the detections obj, assigns most likely exp to dominant_expression and expression_confidence
         Object.keys(obj).forEach(function (key, index) {
@@ -138,8 +155,7 @@ class Game extends Component {
           this.changeWithExpression(dominant_expression);
         }
       }
-      if(!this.state.isLoading)
-            {this.updateTimer();}
+      if (!this.state.isLoading) { this.updateTimer(); }
 
       if (this.state.game_over) {
         localStorage.setItem("score", this.state.score)
@@ -155,25 +171,114 @@ class Game extends Component {
       .getImageData(0, 0, canvas.width, canvas.height).data
       .some(channel => channel !== 0);
   }
-
-
   updateTimer = () => {
-  //  Check if game clock has run out
+    //  Check if game clock has run out
     if (this.state.timeRemaining <= 0) {
       this.setState({ game_over: true })
     }
-    else 
-    {
-      this.setState({ timeRemaining: ((this.state.endTime ) - (Math.floor(Date.now() / 1000))) })
+    else {
+      this.setState({ timeRemaining: ((this.state.endTime) - (Math.floor(Date.now() / 1000))) })
     }
   }
-
+  drawEye = (ctx, eye) => {
+    ctx.beginPath();
+    ctx.moveTo(eye[0].x, eye[0].y)
+    ctx.lineTo(eye[1].x, eye[1].y)
+    ctx.lineTo(eye[2].x, eye[2].y)
+    ctx.lineTo(eye[3].x, eye[3].y)
+    ctx.lineTo(eye[4].x, eye[4].y)
+    ctx.lineTo(eye[5].x, eye[5].y)
+    ctx.lineTo(eye[0].x, eye[0].y)
+    ctx.lineWidth = 5;
+    ctx.strokeStyle = "red"
+    ctx.stroke()
+    ctx.fillStyle = "blue"
+    ctx.fill();
+  }
+  drawNose = (ctx, nose) => {
+    ctx.beginPath();
+    ctx.moveTo(nose[0].x, nose[0].y)
+    ctx.lineTo(nose[1].x, nose[1].y)
+    ctx.lineTo(nose[2].x, nose[2].y)
+    ctx.lineTo(nose[3].x, nose[3].y)
+    ctx.lineTo(nose[4].x, nose[4].y)
+    ctx.lineTo(nose[5].x, nose[5].y)
+    ctx.lineTo(nose[6].x, nose[6].y)
+    ctx.lineTo(nose[7].x, nose[7].y)
+    ctx.lineTo(nose[8].x, nose[8].y)
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = "red"
+    ctx.stroke()
+    // ctx.fillStyle = "blue"
+    // ctx.fill();
+  }
+  drawBrow = (ctx, brow) => {
+    ctx.beginPath();
+    ctx.moveTo(brow[0].x, brow[0].y)
+    ctx.lineTo(brow[1].x, brow[1].y)
+    ctx.lineTo(brow[2].x, brow[2].y)
+    ctx.lineTo(brow[3].x, brow[3].y)
+    ctx.lineTo(brow[4].x, brow[4].y)
+    ctx.lineWidth = 5;
+    ctx.strokeStyle = "red"
+    ctx.stroke()
+  }
+  drawMouth = (ctx, mouth) => {
+    ctx.beginPath();
+    ctx.moveTo(mouth[0].x, mouth[0].y)
+    ctx.lineTo(mouth[1].x, mouth[1].y)
+    ctx.lineTo(mouth[2].x, mouth[2].y)
+    ctx.lineTo(mouth[3].x, mouth[3].y)
+    ctx.lineTo(mouth[4].x, mouth[4].y)
+    ctx.lineTo(mouth[5].x, mouth[5].y)
+    ctx.lineTo(mouth[6].x, mouth[6].y)
+    ctx.lineTo(mouth[7].x, mouth[7].y)
+    ctx.lineTo(mouth[8].x, mouth[8].y)
+    ctx.lineTo(mouth[9].x, mouth[9].y)
+    ctx.lineTo(mouth[10].x, mouth[10].y)
+    ctx.lineTo(mouth[11].x, mouth[11].y)
+    ctx.lineTo(mouth[12].x, mouth[12].y)
+    ctx.lineTo(mouth[13].x, mouth[13].y)
+    ctx.lineTo(mouth[14].x, mouth[14].y)
+    ctx.lineTo(mouth[15].x, mouth[15].y)
+    ctx.lineTo(mouth[16].x, mouth[16].y)
+    ctx.lineTo(mouth[17].x, mouth[17].y)
+    ctx.lineTo(mouth[18].x, mouth[18].y)
+    ctx.lineTo(mouth[19].x, mouth[19].y)
+    ctx.lineTo(mouth[0].x, mouth[0].y)
+    ctx.lineWidth = 5;
+    ctx.strokeStyle = "red"
+    ctx.stroke()
+  }
+  drawJaw = (ctx, jaw) => {
+    ctx.beginPath();
+    ctx.moveTo(jaw[0].x, jaw[0].y)
+    ctx.lineTo(jaw[1].x, jaw[1].y)
+    ctx.lineTo(jaw[2].x, jaw[2].y)
+    ctx.lineTo(jaw[3].x, jaw[3].y)
+    ctx.lineTo(jaw[4].x, jaw[4].y)
+    ctx.lineTo(jaw[5].x, jaw[5].y)
+    ctx.lineTo(jaw[6].x, jaw[6].y)
+    ctx.lineTo(jaw[7].x, jaw[7].y)
+    ctx.lineTo(jaw[8].x, jaw[8].y)
+    ctx.lineTo(jaw[9].x, jaw[9].y)
+    ctx.lineTo(jaw[10].x, jaw[10].y)
+    ctx.lineTo(jaw[11].x, jaw[11].y)
+    ctx.lineTo(jaw[12].x, jaw[12].y)
+    ctx.lineTo(jaw[13].x, jaw[13].y)
+    ctx.lineTo(jaw[14].x, jaw[14].y)
+    ctx.lineTo(jaw[15].x, jaw[15].y)
+    ctx.lineTo(jaw[16].x, jaw[16].y)
+    ctx.lineWidth = 5;
+    ctx.strokeStyle = "red"
+    ctx.stroke()
+  }
+  
 
   checkScore = () => {
     let stored_email = localStorage.getItem("userEmail")
     //If user is logged in and score is above 0
     if (stored_email && (this.state.score > 0)) {
-      console.log("would save normally here")
       saveScore({
         email: stored_email,
         name: stored_email.substring(0, stored_email.lastIndexOf("@")),
@@ -361,7 +466,7 @@ class Game extends Component {
         }
 
         <div>
-          {(this.state.isLoading) ? (<div className="shake-slow shake-constant" style={{ color: "gold", display: "flex", justifyContent: "center", marginTop: "20%" }} >LOADING</div>) :
+          {(this.state.isLoading) ? (<div className="shake-slow shake-constant" style={{ color: "gold", display: "flex", justifyContent: "center", marginTop: "20%", fontSize: "4em" }} >LOADING</div>) :
             (<TopBar current_position={this.state.current_position} round={this.round} round_length={this.round_length} />)
           }
         </div>
@@ -403,6 +508,7 @@ class Game extends Component {
           <div className="score">Faces Accumulated : {this.state.score}</div>
           <div className="timer"> {this.state.timeRemaining}</div>
         </div>
+        <img ref="image" src={Eye} className="hidden" style={{ display: "none" }} />
       </>
     );
   }
