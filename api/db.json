@@ -17,6 +17,12 @@
       "photo": null,
       "userName": "AryaStark",
       "id": 16
+    },
+    {
+      "email": "Arya_Stark@real.email.com",
+      "photo": null,
+      "userName": "Arya_Stark",
+      "id": 17
     }
   ],
   "leaderboard": [
@@ -499,6 +505,12 @@
       "name": "strangehandle",
       "score": 11,
       "id": 85
+    },
+    {
+      "email": "arya_stark@real.email.com",
+      "name": "arya_stark",
+      "score": 3,
+      "id": 86
     }
   ]
 }
