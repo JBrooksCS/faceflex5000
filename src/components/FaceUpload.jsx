@@ -42,6 +42,7 @@ class FaceUpload extends Component {
           }}
         ><div className="home-title">
           <h1 className="title-text text-gradient" style={{margin: ".4em 0 0 0", fontSize: "3em"}}>Make A Face!</h1>
+          <h6 className="text-gradient" style={{margin: ".4em 0 0 0", fontSize: "1em"}}>(Coming Soon!)</h6>
           </div>
           <Webcam
             id="video"
@@ -51,7 +52,7 @@ class FaceUpload extends Component {
             screenshotFormat="image/jpeg"
             width={350}
             //videoConstraints={videoConstraints}
-            style={{filter: `hue-rotate(${170}deg)` }}
+            style={{filter: `hue-rotate(${90}deg)` }}
           />
           <button onClick={this.capture}>Capture Photo</button>
           {/* <canvas id="canvas" ref="canvas" style={{ position: "absolute" }} />  */}

@@ -89,7 +89,7 @@ class Game extends Component {
           this.setState({
             isLoading: false,
             startTime: now,
-            endTime: now + 10// 64,
+            endTime: now + 60// 64,
           })
 
         }
