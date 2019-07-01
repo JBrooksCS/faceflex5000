@@ -99,7 +99,7 @@ class Game extends Component {
       const detections = await faceapi
         .detectAllFaces(
           input,
-          new faceapi.TinyFaceDetectorOptions({ inputSize: 128 })
+          new faceapi.TinyFaceDetectorOptions({ inputSize: 160 })
         )
         .withFaceLandmarks()
         .withFaceExpressions();
@@ -156,7 +156,7 @@ class Game extends Component {
         clearInterval(game_interval)
         this.checkScore()
       }
-    }, 100);
+    }, 60);
   }
   canvasIsBlank = () => {
     let canvas = this.refs.canvas
@@ -557,7 +557,7 @@ class Game extends Component {
           <button className="goHome" onClick={this.endGame}>
             Home
           </button>
-          <div className="score">Faces Accumulated : {this.state.score}</div>
+          <div className="gameplay_score">Faces Accumulated : {this.state.score}</div>
           <div className="timer"> {this.state.timeRemaining}</div>
         </div>
 

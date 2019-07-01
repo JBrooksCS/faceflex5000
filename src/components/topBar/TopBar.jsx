@@ -6,7 +6,7 @@ import React, { Component } from "react";
 // import angry from "./photos/angry_cage.jpg";
 // import fearful from "./photos/osmond_scared.jpeg";
 import TopImage from "../TopImage"
-// import TopLabel from "./TopLabel";
+import TopLabel from "./TopLabel";
 import "../../styles/shake.css"
 
 //import ALL_IMAGES from "./ALL_IMAGES"
@@ -21,8 +21,8 @@ class TopBar extends Component {
   
 
   getPictures(index){
-    let pic = this.props.round[index].image //ALL_IMAGES[0].image
-    //console.log(this.props.round.length)
+    let pic = this.props.round[index].image
+
     return pic
   }
   getColor = () =>{
@@ -57,16 +57,12 @@ class TopBar extends Component {
     return exp_color
   }
   render() {
-      //console.log("TopBar Rendering")
-      //console.log("CURR POS ", this.props.current_position)
       let LENGTH = this.props.round.length
       let TWO_BEFORE = (((this.props.current_position-2)+LENGTH)%LENGTH)
       let ONE_BEFORE = (((this.props.current_position-1)+LENGTH)%LENGTH)
       let ONE_AFTER = ((1 + this.props.current_position) % LENGTH)
       let TWO_AFTER = ((2 + this.props.current_position) % LENGTH)
-      // console.log( "ANSER", (((this.props.current_position - 1) + LENGTH ) % LENGTH ) )
-      // console.log ("TWO BEFORE ", TWO_BEFORE, "ONE BEFORE" , ONE_BEFORE)
-      // console.log ("TWO AFTER ", TWO_AFTER, "ONE AFTER" , ONE_AFTER)
+      let exp_color = this.getColor()
     return (
         <>
         {(this.props.round.length > 0)?(
@@ -77,8 +73,9 @@ class TopBar extends Component {
         <div >
           <TopImage pictureSrc={this.getPictures(ONE_BEFORE)} isHighlighted={ false }/>
           </div>
-      <div className="highlighted" style={{ background: this.getColor()}} >
+      <div className="highlighted" style={{ background: exp_color}} >
           <TopImage pictureSrc={this.getPictures((this.props.current_position % LENGTH))} isHighlighted={ true }/>
+          <TopLabel round={this.props.round} current_position={this.props.current_position} color={exp_color}/>
           </div>
       <div >
           <TopImage pictureSrc={this.getPictures(ONE_AFTER)} isHighlighted={false}/>
