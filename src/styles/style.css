@@ -145,6 +145,14 @@ background-color: black; /* Green */
   font-size: 94%;
   padding-left: 1.5em;
 }
+.gameplay_score{
+  font-family: "Bitstream Vera Sans Mono", monospace;
+  color: hotpink;
+  align-self: center;
+  margin: auto;
+  font-size: 1.8em;
+  padding-left: 1.5em;
+}
 .col{
   margin-bottom: .5em;
 }
@@ -365,6 +373,10 @@ background: transparent;
   padding-top: .5em;
   height: 100%;
   font-size: 2em;
+}
+
+rotate_color_180{
+  filter: hue-rotate(180deg)
 }
 
 
