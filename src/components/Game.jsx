@@ -34,7 +34,8 @@ class Game extends Component {
     startTime: 0,
     endTime: 0,
     timeRemaining: 60,
-    game_over: false
+    game_over: false,
+    waiting_for_neutral: false
   };
 
   //TEST_COLOR = "red";
@@ -319,14 +320,15 @@ class Game extends Component {
     switch (dom_exp) {
       case "angry":
         //if the expression detected is equal to the expression we want to match
-        if (dom_exp === this.round[this.state.current_position].exp) {
+        if (dom_exp === this.round[this.state.current_position].exp && (!this.state.waiting_for_neutral)) {
           let position = (this.state.current_position + 1) % (this.round_length);
           let new_score = this.state.score + 1;
           this.setState({
             expression: "angry",
             color: this.angryColor,
             current_position: position,
-            score: new_score
+            score: new_score,
+            waiting_for_neutral: true
           });
         } else {
           this.setState({ expression: "angry", color: this.angryColor });
@@ -334,14 +336,15 @@ class Game extends Component {
         break;
 
       case "disgusted":
-        if (dom_exp === this.round[this.state.current_position].exp) {
+        if (dom_exp === this.round[this.state.current_position].exp && (!this.state.waiting_for_neutral)) {
           let position = (this.state.current_position + 1) % (this.round_length);
           let new_score = this.state.score + 1;
           this.setState({
             expression: "disgusted",
             color: this.disgustedColor,
             current_position: position,
-            score: new_score
+            score: new_score,
+            waiting_for_neutral: true
           });
         } else {
           this.setState({
@@ -352,14 +355,15 @@ class Game extends Component {
         break;
 
       case "fearful":
-        if (dom_exp === this.round[this.state.current_position].exp) {
+        if (dom_exp === this.round[this.state.current_position].exp && (!this.state.waiting_for_neutral)) {
           let position = (this.state.current_position + 1) % (this.round_length);
           let new_score = this.state.score + 1;
           this.setState({
             expression: "fearful",
             color: this.fearfulColor,
             current_position: position,
-            score: new_score
+            score: new_score,
+            waiting_for_neutral: true
           });
         } else {
           this.setState({ expression: "fearful", color: this.fearfulColor });
@@ -367,14 +371,15 @@ class Game extends Component {
         break;
 
       case "happy":
-        if (dom_exp === this.round[this.state.current_position].exp) {
+        if (dom_exp === this.round[this.state.current_position].exp && (!this.state.waiting_for_neutral)) {
           let position = (this.state.current_position + 1) % (this.round_length);
           let new_score = this.state.score + 1;
           this.setState({
             expression: "happy",
             color: this.happyColor,
             current_position: position,
-            score: new_score
+            score: new_score,
+            waiting_for_neutral: true
           });
         } else {
           this.setState({ expression: "happy", color: this.happyColor });
@@ -382,18 +387,19 @@ class Game extends Component {
         break;
 
       case "neutral":
-        this.setState({ expression: "neutral", color: this.neutralColor });
+        this.setState({ expression: "neutral", color: this.neutralColor, waiting_for_neutral: false });
         break;
 
       case "sad":
-        if (dom_exp === this.round[this.state.current_position].exp) {
+        if (dom_exp === this.round[this.state.current_position].exp && (!this.state.waiting_for_neutral)) {
           let position = (this.state.current_position + 1) % (this.round_length);
           let new_score = this.state.score + 1;
           this.setState({
             expression: "sad",
             color: this.sadColor,
             current_position: position,
-            score: new_score
+            score: new_score,
+            waiting_for_neutral: true
           });
         } else {
           this.setState({ expression: "sad", color: this.sadColor });
@@ -401,14 +407,15 @@ class Game extends Component {
         break;
 
       case "surprised":
-        if (dom_exp === this.round[this.state.current_position].exp) {
+        if (dom_exp === this.round[this.state.current_position].exp && (!this.state.waiting_for_neutral)) {
           let position = (this.state.current_position + 1) % (this.round_length);
           let new_score = this.state.score + 1;
           this.setState({
             expression: "surprised",
             color: this.shockedColor,
             current_position: position,
-            score: new_score
+            score: new_score,
+            waiting_for_neutral: true
           });
         } else {
           this.setState({ expression: "surprised", color: this.shockedColor });
