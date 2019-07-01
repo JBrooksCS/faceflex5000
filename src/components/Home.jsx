@@ -124,7 +124,7 @@ class Home extends Component {
                 :
                 (
                   <div className="home-link">
-                    <Link className="nav-link" to="/" style={{ textDecoration: 'none' }}>Profile Info</Link>
+                    <Link className="nav-link" to="/top20" style={{ textDecoration: 'none' }}> ~ TOP 20 ~ </Link>
                   </div>
                 )
 

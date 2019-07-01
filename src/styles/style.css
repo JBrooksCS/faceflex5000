@@ -66,6 +66,7 @@ video{
     position: fixed;
     bottom: 0;
     width: 100%;
+    padding-left: 10px;
 }
 .restart {
 background-color: black; /* Green */
@@ -141,7 +142,7 @@ background-color: black; /* Green */
   color: hotpink;
   align-self: center;
   margin: auto;
-  font-size: 95%;
+  font-size: 94%;
   padding-left: 1.5em;
 }
 .col{
@@ -276,6 +277,7 @@ background-color: black; /* Green */
 .hallOfFame{
   font-family: "Potra";
   font-size: 1em;
+  color: coral;
   display: flex;
   justify-content: center;
   padding-bottom: .1em;
@@ -309,29 +311,37 @@ background: transparent;
   opacity: 1;
 }
 .modalHeader{
-  background-color: #008CBA;
-  color: aqua;
+  background-color: rgb(11, 53, 170);
+  color: rgb(13, 186, 255);
   text-shadow: 2px 1px rgb(233, 111, 11);
-  font-family: "Reavers";
-  border-radius: 4px;
+  font-family: "Argani";
+}
+.modal-header{
+  border-radius: 0;
 }
 .modalBody{
-  background-color: #008CBA;
-  color: hotpink;
-  text-shadow: 2px 2px #4444dd;
+  background-color: rgb(52, 67, 206);
+  color: rgb(56, 228, 199);
+  text-shadow: 1px 1px #dd44a2;
   font-size: 1.5em;
   display: flex;
 }
 .modalFooter{
-  background-color: #008CBA;
-  border-radius: 4px;
+  background-color: rgb(11, 53, 170);
+  
+
   display: flex;
 }
 #modalButton{
-  color: rgb(255, 217, 0);
-  background-color: blue;
-
+  color: rgb(83, 80, 253);
+  background-color: rgb(223, 135, 54);
 }
+#modalButton:hover{
+  background-color: rgb(83, 80, 253);
+  color: rgb(223, 135, 54);
+}
+
+
 #signin_button{
   margin-top: 6em;
   background-color: rgb(112, 74, 248);
@@ -349,6 +359,12 @@ background: transparent;
 }
 .col {
 
+}
+
+.top20{
+  padding-top: .5em;
+  height: 100%;
+  font-size: 2em;
 }
 
 
