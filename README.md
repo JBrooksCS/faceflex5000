@@ -37,6 +37,10 @@ I made the background video loop myself using Adobe After Effects. For more exam
 
 For the facial recognition features, I used [face-api.js] (https://github.com/justadudewhohacks/face-api.js), which is a facial recognition API written for the browser by JustADudeWhoHacks. It's incredibly well documented and is based upon the [Tensorflow machine learning API](https://github.com/tensorflow/tfjs-core). 
 
+* User Authentication
+
+I used [Google Firebase](https://firebase.google.com/) for user email authentication. I plan on doubling back and building this out a bit in the future. 
+
 * Styling 
 
 For the modals I used [Reactstrap](https://github.com/reactstrap/reactstrap)
