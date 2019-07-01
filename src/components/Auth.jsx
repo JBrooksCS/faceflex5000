@@ -57,7 +57,7 @@ class Auth extends Component {
       modal: true,
       error: []
     };
-    console.log("EMail Val ", this.refs.signUpEmail.value);
+
     newState.modal = !this.state.modal;
     this.setState(newState);
   };
@@ -78,13 +78,10 @@ class Auth extends Component {
       )
       .then(() => {
         var user = firebase.auth().currentUser;
-        console.log("Made it past Log In, User :", user);
         localStorage.setItem("userEmail", user.email);
         this.props.history.push("/");
       })
       .catch(error => {
-        console.log("ERROR", error);
-        console.log("ERROR", error);
         newState.modal = !this.state.modal;
         newState.error = error.message;
         this.setState(newState);
@@ -115,15 +112,12 @@ class Auth extends Component {
       })
       .then(() => {
         let userName = this.state.signup_email.substring(0, this.state.signup_email.lastIndexOf("@"));
-        console.log("PARSED USER NAME ", userName)
         newUser.userName = userName;
         // We dont want to store the password in our DB - leave that to Firebase
         delete newUser.password;
-        console.log("newUserOBJ ", newUser)
         saveProfile(newUser)
       })
       .catch(error => {
-        console.log("ERROR", error);
         newState = {
           modal: !this.state.modal,
           error: error.message,

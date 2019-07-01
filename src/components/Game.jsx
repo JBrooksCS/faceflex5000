@@ -47,8 +47,8 @@ class Game extends Component {
   fearfulColor = "purple";
   neutralColor = "black";
   //Round 1 emotion array
-  round = []//["happy", "sad", "surprised", "angry", "disgusted", "fearful"];
-  // round_length = this.round.length;
+  //["happy", "sad", "surprised", "angry", "disgusted", "fearful"];
+  round = []
   round_length = ALL_IMAGES.length;
 
   async componentDidMount() {
@@ -89,7 +89,7 @@ class Game extends Component {
           this.setState({
             isLoading: false,
             startTime: now,
-            endTime: now + 60// 64,
+            endTime: now + 10// 64,
           })
 
         }
@@ -468,15 +468,16 @@ class Game extends Component {
 
 
       <>
-        {(this.state.game_over) ?
+
           <div>
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" />
             <Modal
               isOpen={this.state.game_over}
               toggle={this.goHome}
               className={this.props.className}
+
             >
-              <ModalHeader className="modalHeader"> Game over! </ModalHeader>
+              <ModalHeader className="modalHeader" style={{borderRadius:"0"}}> Game over! </ModalHeader>
               <ModalBody className="modalBody">
                 Congratulations! You earned {this.state.score} faces!
               {(localStorage.getItem("userEmail")) ? ("") : (" Sign In / Sign Up to add your score to the Hall of Fame!")}
@@ -489,8 +490,8 @@ class Game extends Component {
               </ModalFooter>
             </Modal>
           </div>
-          : <></>
-        }
+
+        
 
         <div>
           {(this.state.isLoading) ? (<div className="shake-slow shake-constant" style={{ color: "gold", display: "flex", justifyContent: "center", marginTop: "20%", fontSize: "4em" }} >LOADING</div>) :
@@ -500,15 +501,18 @@ class Game extends Component {
 
         <div
           ref="container"
-          className="container"
+          className="container1"
           style={{
             display: "flex",
             flexDirection: "row",
             justifyContent: "center",
-            margin: 0,
-            padding: "0px",
+            marginRight: "0px",
+
             height: "400",
-            backgroundColor: this.state.color
+            width: "100%",
+            backgroundColor: this.state.color, 
+
+
           }}
         >
           <Webcam
