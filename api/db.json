@@ -57,9 +57,9 @@
       "id": 10
     },
     {
-      "email": "aryastark@gmail.com",
-      "name": "aryastark",
-      "score": 2,
+      "email": "Arya_Stark@gmail.com",
+      "name": "Arya_Stark",
+      "score": 99,
       "id": 11
     },
     {
@@ -75,8 +75,8 @@
       "id": 13
     },
     {
-      "email": "strangehandle@gmail.com",
-      "name": "strangehandle",
+      "email": "Jason@gmail.com",
+      "name": "Jason",
       "score": 41,
       "id": 14
     },
@@ -141,8 +141,8 @@
       "id": 24
     },
     {
-      "email": "strangehandle@gmail.com",
-      "name": "strangehandle",
+      "email": "ned_stark@gmail.com",
+      "name": "ned_stark",
       "score": 3,
       "id": 25
     },
@@ -171,14 +171,14 @@
       "id": 29
     },
     {
-      "email": "strangehandle@gmail.com",
-      "name": "strangehandle",
-      "score": 2,
+      "email": "Jim_Carrey@gmail.com",
+      "name": "Jim_Carrey",
+      "score": 100,
       "id": 30
     },
     {
-      "email": "strangehandle@gmail.com",
-      "name": "strangehandle",
+      "email": "bill_gates@gmail.com",
+      "name": "bill_gates",
       "score": 2,
       "id": 31
     },
@@ -237,8 +237,8 @@
       "id": 40
     },
     {
-      "email": "strangehandle@gmail.com",
-      "name": "strangehandle",
+      "email": "LisaSimpson@gmail.com",
+      "name": "LisaSimpson",
       "score": 1,
       "id": 41
     },
@@ -255,8 +255,8 @@
       "id": 43
     },
     {
-      "email": "strangehandle@gmail.com",
-      "name": "strangehandle",
+      "email": "Jason@gmail.com",
+      "name": "Jason",
       "score": 1,
       "id": 44
     },
