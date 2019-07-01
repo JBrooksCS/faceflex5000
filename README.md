@@ -2,16 +2,16 @@
 
 This is a web app that I made for fun utilizing React and facial expression recognition. The goal is simple - match as many facial expressions as you can in a minute's time and see if you can make it to the coveted **HALL OF FAME**. 
 
-For the facial expression recognition, there are 6 expressions that are recognized (in order of difficulty, according to my personal experience). Listed next to each is it's associated in-game color  - 
+For the facial expression recognition, there are 6 expressions that are recognized (in ascending order of difficulty, according to my personal experience). Listed next to each is it's associated in-game color  - 
 
-* Happiness
-* Anger
-* Surprise
-* Sadness
-* Disgust
-* Fear
+* Happiness (light blue)
+* Anger (red)
+* Surprise (yellow)
+* Sadness (dark blue)
+* Fear (purple)
+* Disgust (green)
 
-For best results, make your faces in a well lit environment. :-)
+For best results, believe in yourself. Also, make your faces in a well lit environment. :-)
 
 ## Screenshots
 
@@ -22,7 +22,7 @@ For best results, make your faces in a well lit environment. :-)
 ---
 
 
-![Image](FACEFLEX_screenshot_1.png)
+![Image](FACEFLEX_screenshot_2.png)
 
 
 ---
