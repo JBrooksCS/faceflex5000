@@ -7,6 +7,7 @@ import TopBar from "./topBar/TopBar";
 import ALL_IMAGES from "./topBar/ALL_IMAGES"
 import "../styles/style.css";
 import { saveScore } from "../API_Manager/leaderboard";
+import { getLeaderboard } from "../API_Manager/leaderboard";
 import {
   Modal,
   ModalHeader,
@@ -51,11 +52,11 @@ class Game extends Component {
   //["happy", "sad", "surprised", "angry", "disgusted", "fearful"];
   round = []
   round_length = ALL_IMAGES.length;
+  game_length_in_seconds = 60
 
   async componentDidMount() {
 
     document.body.style.backgroundColor = "black";
-    console.log("component did mount");
     // console.log("OG Images", ALL_IMAGES)
     //Initialize state array with a random array of face objects
     //this.round = this.randomizeArray(ALL_IMAGES)
@@ -84,13 +85,12 @@ class Game extends Component {
       //started drawing on the canvas. Probably a better way to optimize this..?
       if (this.state.isLoading) {
         if (!this.canvasIsBlank()) {
-          console.log("LOADING")
           let now = Math.floor(Date.now() / 1000);
 
           this.setState({
             isLoading: false,
             startTime: now,
-            endTime: now + 60// 64,
+            endTime: now + this.game_length_in_seconds// 64,
           })
 
         }
@@ -303,15 +303,29 @@ class Game extends Component {
   }
   
 
-  checkScore = () => {
+  checkScore =  async () => {
     let stored_email = localStorage.getItem("userEmail")
+
+
     //If user is logged in and score is above 0
     if (stored_email && (this.state.score > 0)) {
-      saveScore({
-        email: stored_email,
-        name: stored_email.substring(0, stored_email.lastIndexOf("@")),
-        score: this.state.score
-      })
+      const scores = await getLeaderboard()
+      let score_exists = false
+      scores.forEach(single_score => {
+        if ( single_score.email === stored_email && single_score.score === this.state.score ){
+          score_exists = true
+        }
+      });
+      if (score_exists){
+        console.log("Score Already Exists")
+      }
+      else {
+        saveScore({
+          email: stored_email,
+          name: stored_email.substring(0, stored_email.lastIndexOf("@")),
+          score: this.state.score
+        })
+      }
     }
   }
   changeWithExpression = (dom_exp) => {
