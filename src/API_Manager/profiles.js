@@ -1,4 +1,5 @@
-const url = "http://localhost:8088/profiles";
+// const url = "http://localhost:8088/profiles";
+const url = "https://faceflex-api.herokuapp.com/profiles";
 
 export const getProfiles = () => {
   return fetch(url).then(res => res.json());
