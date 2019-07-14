@@ -130,11 +130,11 @@ class Home extends Component {
 
             }
 
-            <div className="home-link">
+           {/* <div className="home-link">
               <Link className="nav-link" to="/faceupload" style={{ textDecoration: 'none' }}>
                 CONTRIBUTE YOUR FACE
               </Link>
-            </div>
+          </div> */}
           </div>
           <div className="home-container-center">
           

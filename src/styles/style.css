@@ -225,9 +225,9 @@ background-color: black; /* Green */
 .nav-link{
 
   font-family: "Argani";
-  font-size: .8em;
-
+  font-size: 1.2em;
   color:  rgb(209, 206, 51);
+  padding-top: 1em;
 
 
 }
@@ -273,7 +273,7 @@ background-color: black; /* Green */
   width: 90%;
   display: flex;
   justify-content: center;
-  color: rgb(241, 104, 104);
+  color: rgb(241, 104, 150);
   filter: drop-shadow(1px 1px 1px #4444dd);
 }
 
@@ -320,33 +320,34 @@ background: transparent;
 }
 .modalHeader{
   background-color: rgb(11, 53, 170);
-  color: rgb(13, 186, 255);
-  text-shadow: 2px 1px rgb(233, 111, 11);
+  color: rgb(255, 13, 203);
+  text-shadow: 2px 1px rgb(248, 240, 133);
   font-family: "Argani";
+  border-top-left-radius: 0rem;
+  border-top-right-radius: 0rem;
+
 }
 .modal-header{
-  border-radius: 0;
+  border-top-left-radius: 3em;
 }
 .modalBody{
-  background-color: rgb(52, 67, 206);
-  color: rgb(56, 228, 199);
-  text-shadow: 1px 1px #dd44a2;
-  font-size: 1.5em;
+  background-color: rgb(27, 31, 71);
+  color: rgb(200, 230, 255);
+  font-size: 1.2em;
   display: flex;
 }
 .modalFooter{
   background-color: rgb(11, 53, 170);
-  
-
   display: flex;
 }
 #modalButton{
-  color: rgb(83, 80, 253);
-  background-color: rgb(223, 135, 54);
+  color: rgb(0, 0, 0);
+  background-color: rgb(112, 74, 248);
+
 }
 #modalButton:hover{
-  background-color: rgb(83, 80, 253);
-  color: rgb(223, 135, 54);
+  background-color: rgb(248, 240, 133);
+
 }
 
 
@@ -354,11 +355,24 @@ background: transparent;
   margin-top: 6em;
   background-color: rgb(112, 74, 248);
 }
+#signin_button:hover{
+  background-color: rgb(248, 240, 133);
+}
 #signup_button{
   margin-top: 6em;  
   background-color: rgb(112, 74, 248);
-
-
+}
+#signup_button:hover{
+  background-color: rgb(248, 240, 133);
+}
+input{
+  opacity: .5;
+}
+input:hover{
+  opacity: .7;
+}
+input:focus{
+  opacity: 1;
 }
 
 .flex-grid {
