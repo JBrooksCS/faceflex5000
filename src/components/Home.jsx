@@ -14,6 +14,7 @@ import {
   Button,
   //Fade
 } from "reactstrap";
+import home_song from "./FaceFlex_music.mp3"
 
 class Home extends Component {
   state = {
@@ -104,6 +105,7 @@ class Home extends Component {
           <source src={video2} type="video/mp4" />
         </video>
         </div>
+        
         <div className="home-title" style={{ padding: "1em 0 3em 0" }}>
           <Title />
         </div>
@@ -145,6 +147,9 @@ class Home extends Component {
           </div>
 
           <div className="row footer">
+          <audio autoPlay={true} controls>
+          <source src={home_song} type="audio/mpeg"/>
+        </audio>
             {(this.state.user !== null) ? (
               <div className="signOutDiv">
                 <button className="signOut" onClick={this.signOut}>
