@@ -27,7 +27,7 @@ class TopBar extends Component {
   }
   getColor = () =>{
     let expression = this.props.round[this.props.current_position].exp
-    console.log("EXP TO MAKE", expression)
+    // console.log("EXP TO MAKE", expression)
     let exp_color = ""
     switch(expression) {
       case "angry":

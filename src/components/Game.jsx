@@ -550,7 +550,8 @@ class Game extends Component {
 
           <canvas id="canvas2" ref="canvas" style={{ position: "relative" }} />
         </div>
-        <div className="row footer">
+        {(!this.state.isLoading) ? 
+        (<div className="row footer">
           <button className="restart" onClick={this.restart}>
             Restart
           </button>
@@ -559,7 +560,7 @@ class Game extends Component {
           </button>
           <div className="gameplay_score">Faces Accumulated : {this.state.score}</div>
           <div className="timer"> {this.state.timeRemaining}</div>
-        </div>
+        </div>) : (<div></div>)}
 
       </>
     );

@@ -4,7 +4,7 @@ import 'firebase/storage'
 import Title from "./Title";
 import video2 from "./FACEFLEX_BG.mp4";
 import { Link } from "react-router-dom";
-import fire from "../config/Fire";
+import {fire} from "../config/Fire";
 import { saveProfile } from "../API_Manager/profiles";
 import {
   Modal,

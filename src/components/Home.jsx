@@ -5,7 +5,7 @@ import "../styles/shake.css"
 import Leaderboard from "./Leaderboard";
 import Title from "./Title";
 import video2 from "./FACEFLEX_BG.mp4";
-import fire from "../config/Fire";
+import {fire} from "../config/Fire";
 import {
   Modal,
   ModalHeader,
@@ -39,7 +39,7 @@ class Home extends Component {
       modal: modalBool
     });
     //localStorage.setItem("scoreModal", false)
-    console.log("Home Mounted");
+    // console.log("Home Mounted");
   };
 
   parseUserName = (email) => {
@@ -147,9 +147,9 @@ class Home extends Component {
           </div>
 
           <div className="row footer">
-          <audio autoPlay={true} controls>
+          {/* <audio autoPlay={true} controls>
           <source src={home_song} type="audio/mpeg"/>
-        </audio>
+        </audio> */}
             {(this.state.user !== null) ? (
               <div className="signOutDiv">
                 <button className="signOut" onClick={this.signOut}>

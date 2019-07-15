@@ -1,7 +1,8 @@
+import Rebase from 're-base';
 import firebase from 'firebase';
 
 const config = {
-   apiKey: process.env.API_KEY,
+   apiKey: "AIzaSyCQAyEwBaMOwgVahMmJCkuvrZkI4B_gaKY",
    authDomain: "fecapstone-57515.firebaseapp.com",
    databaseURL: "https://fecapstone-57515.firebaseio.com",
    projectId: "fecapstone-57515",
@@ -10,8 +11,8 @@ const config = {
    appId: "1:932908202274:web:8e8de238ff8ebbd6"
  };
 
+export const fire = firebase.initializeApp(config);
 
+export var db = firebase.database(fire);
+export var base = Rebase.createClass(db);
 
-const fire = firebase.initializeApp(config);
-
-export default fire;
