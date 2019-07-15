@@ -142,7 +142,7 @@ class Home extends Component {
           
           </div>
           <div className="home-container-right">
-            <h3 className="hallOfFame">HALL OF FAME</h3>
+            <h3 className="hallOfFame glow">HALL OF FAME</h3>
             <Leaderboard />
           </div>
 

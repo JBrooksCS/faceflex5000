@@ -158,7 +158,7 @@ class Auth extends Component {
         </video>
 
         <div className="home-title">
-          <Link className="nav-link" to="/">
+          <Link className="nav-link auth-title" to="/">
             <Title />
           </Link>
         </div>

@@ -187,11 +187,13 @@ video {
 }
 .flex-grid {
   background-color: rgb(36, 1, 30);
+  opacity: .75;
   padding-top: .4em;
   border-radius: 1em;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
   display:FLEX;
+  box-shadow: 1px 1px 2px 2px #6cf7fc;
 }
 
 @media screen and (max-width: 950px) {
@@ -220,7 +222,6 @@ video {
 
   .nav-link,
   h3 {
-
     white-space: nowrap;
   }
 
@@ -354,6 +355,8 @@ video {
   padding-bottom: 2em;
   background-color: rgb(31, 1, 27);
   border-radius: 3em;
+  box-shadow: 1px 1px 2px 2px #6cf7fc;
+
 }
 
 
@@ -541,4 +544,28 @@ input:focus {
 
 rotate_color_180 {
   filter: hue-rotate(180deg)
+}
+
+.auth-title{
+  background-color: transparent;
+  box-shadow: none;
+
+}
+
+.glow {
+
+  color: coral;
+  text-align: center;
+  -webkit-animation: glow 1s ease-in-out infinite alternate;
+  -moz-animation: glow 1s ease-in-out infinite alternate;
+  animation: glow 1s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 5px rgb(0, 0, 0), 0 0 20px rgb(0, 0, 0), 0 0 30px rgb(80, 191, 255), 0 0 40px rgb(2, 180, 250), 0 0 50px rgb(80, 243, 255), 0 0 60px rgb(80, 200, 255), 0 0 70px rgb(80, 150, 255);
+  }
+  to {
+    text-shadow: 0 0 20px rgb(0, 0, 0), 0 0 30px rgb(180, 49, 2), 0 0 40px rgb(211, 57, 1), 0 0 50px rgb(206, 56, 1), 0 0 60px rgb(245, 83, 25), 0 0 70px rgb(248, 96, 41), 0 0 80px rgb(247, 112, 62);
+  }
 }
